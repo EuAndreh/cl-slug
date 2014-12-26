@@ -1,0 +1,43 @@
+* Cl-Slug  -
+
+  Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-putting-it-together-updated-blog-example][Lisp Web Tales]]
+** Usage
+#+BEGIN_SRC lisp
+  * (progn
+      (ql:quickload :cl-slug)
+      (defpackage cl-slug-user
+        (:use cl cl-slug))
+      (in-package cl-slug-user))
+  ; => T
+#+END_SRC
+
+** Dependencies
+   This library depends solely on the (awesome) [[http://quickutil.org][Quickutil]] library. The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
+
+** Installation
+   1. =cd= to your [[quicklisp.org][Quicklisp]] =local-projects= folder.
+   2. Clone the repo =git clone https://github.com/EuAndreh/cl-slug=.
+   3. Load it with Quicklisp: =(ql:quickload :cl-slug)=
+
+** Bugs
+   If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
+
+** Tests
+   To run all the defined tests, use:
+#+BEGIN_SRC lisp
+  * (asdf:test-system :cl-slug)
+  ; prints lots of stuff...
+  ; => T
+#+END_SRC
+
+** Author
+
++ André Miranda
+
+** Copyright
+
+Copyright (c) 2014 André Miranda
+
+** License
+
+Licensed under the LLGPL License.
