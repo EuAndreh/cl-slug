@@ -4,7 +4,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 7)
+(plan 8)
 
 (deftest test-*accentuation-alist*-pairs-equivalence
   (let ((accentuated-side (with-output-to-string (s)
@@ -75,6 +75,11 @@
     (is (slugify slugged-string)
         slugged-string
         "Doesn't mess with an already #'SLUGIFied string.")))
+
+(deftest remove-special-chars-test
+  (is (remove-special-chars "Groß")
+      "Gross"
+      "#'REMOVE-SPECIAL-CHAR works correctly."))
 
 (deftest string-with-numbers-test
   (let ((numbered-string "one2three4five"))

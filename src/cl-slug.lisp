@@ -4,14 +4,19 @@
            *slug-separator*
            remove-accentuation
            remove-ponctuation
+           remove-special-chars
            slugify))
 (in-package cl-slug)
+
+(defparameter *special-chars-alist* '(("ss" . "ß"))
+  "Alist with special chars that beahve differently from others.")
 
 (defparameter *accentuation-alist*
   (let ((chars '((#\A . #\Á) (#\E . #\É) (#\I . #\Í) (#\O . #\Ó) (#\U . #\Ú)
                  (#\A . #\Â) (#\E . #\È)             (#\O . #\Ô) (#\U . #\Ü)
                  (#\A . #\À) (#\E . #\Ê)             (#\O . #\Õ) (#\U . #\Ŭ)
-                 (#\A . #\Ã)
+                 (#\A . #\Ã)                         (#\O . #\Ö)
+                 (#\A . #\Ä)
 
                  (#\C . #\Ç) (#\G . #\Ĝ) (#\H . #\Ĥ) (#\J . #\Ĵ) (#\S . #\Ŝ)
                  (#\C . #\Ĉ))))
@@ -58,6 +63,21 @@
      (string-trim (list *slug-separator*)
                   (substitute-ponctuation-by-separator string)))))
 
+(defun remove-special-chars (string)
+  "Removes all special characters stored in *SPECIAL-CHARS-ALIST* using #'PPCRE:REGEX-REPLACE-ALL."
+  (labels ((rec (chars-list str)
+             (if chars-list
+                 (let ((char-pair (car chars-list)))
+                   (rec (cdr chars-list)
+                        (ppcre:regex-replace-all (cdr char-pair)
+                                                 str
+                                                 (car char-pair))))
+                 str)))
+    (rec *special-chars-alist* string)))
+
 (defun slugify (string)
   "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
-  (remove-accentuation (string-downcase (remove-ponctuation string))))
+  (remove-accentuation
+   (string-downcase
+    (remove-special-chars
+     (remove-ponctuation string)))))
