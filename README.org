@@ -1,5 +1,5 @@
 * cl-slug
-  Easily create slugs from any string. Supports english and portuguese strings.
+  Easily create slugs from any string. Supports english, portuguese and esperanto strings.
 
   Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-putting-it-together-updated-blog-example][Lisp Web Tales]].
 ** Usage

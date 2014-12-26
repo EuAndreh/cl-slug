@@ -10,10 +10,11 @@
 (defparameter *accentuation-alist*
   (let ((chars '((#\A . #\Á) (#\E . #\É) (#\I . #\Í) (#\O . #\Ó) (#\U . #\Ú)
                  (#\A . #\Â) (#\E . #\È)             (#\O . #\Ô) (#\U . #\Ü)
-                 (#\A . #\À) (#\E . #\Ê)             (#\O . #\Õ)
+                 (#\A . #\À) (#\E . #\Ê)             (#\O . #\Õ) (#\U . #\Ŭ)
                  (#\A . #\Ã)
 
-                 (#\C . #\Ç))))
+                 (#\C . #\Ç) (#\G . #\Ĝ) (#\H . #\Ĥ) (#\J . #\Ĵ) (#\S . #\Ŝ)
+                 (#\C . #\Ĉ))))
     (append chars (mapcar (lambda (pair)
                             (cons (char-downcase (car pair))
                                   (char-downcase (cdr pair))))
