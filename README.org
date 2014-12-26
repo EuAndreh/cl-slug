@@ -35,12 +35,14 @@
 #+END_SRC
    Note: if you find yourself doin't that too often, consider creating a pull request to add it to the source.
 
-   =slugify= is built on two other functions, =remove-ponctuation= and =remove-accentuation=:
+   =slugify= is built on three other functions, =remove-ponctuation=, =remove-accentuation= and =remove-special-chars=:
 #+BEGIN_SRC lisp
 * (remove-ponctuation "String with a comma, a dot (.) and parentheses")
 ; => "String-with-a-comma-a-dot-and-parentheses"
 * (remove-accentuation "André Miranda")
 ; => "Andre Miranda"
+* (remove-special-chars "Groß")
+; => "Gross"
 #+END_SRC
    All those functions also ignore numbers:
 #+BEGIN_SRC lisp
