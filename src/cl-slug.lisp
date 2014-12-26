@@ -59,5 +59,5 @@
                   (substitute-ponctuation-by-separator string)))))
 
 (defun slugify (string)
-  "Makes STRING a slug: a downcase string, with no special characters or ponctuation or accentuated letters whatsoever."
+  "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
   (remove-accentuation (string-downcase (remove-ponctuation string))))
