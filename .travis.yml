@@ -1,5 +1,4 @@
-# language: common-lisp
-language: lisp
+language: common-lisp
 
 env:
   matrix:
@@ -32,7 +31,3 @@ install:
 script:
   - cl -e '(ql:quickload :cl-slug)'
        -e '(asdf:test-system :cl-slug)'
-
-#notifications:
-#  email:
-#    - eudoxiahp@gmail.com
