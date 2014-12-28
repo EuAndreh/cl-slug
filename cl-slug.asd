@@ -6,7 +6,7 @@
   :version "0.1"
   :author "André Miranda"
   :license "LLGPL"
-  :depends-on ()
+  :depends-on (cl-ppcre)
   :components ((:module "src"
                 :components
                 ((:file "cl-slug"))))
