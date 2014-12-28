@@ -4,7 +4,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 8)
+(plan 9)
 
 (deftest test-*accentuation-alist*-pairs-equivalence
   (let ((accentuated-side (with-output-to-string (s)
@@ -25,10 +25,10 @@
    (is (remove-accentuation test-string)
        test-string
        "Doesn't remove accentuation for a character outside *ACCENTUATION-ALIST*.")
-   (pushnew '(#\c . #\ć) *accentuation-alist*)
-   (is (remove-accentuation test-string)
-       "c"
-       "(pushnew '(chars) *accentuation-alist*) works for #'REMOVE-ACCENTUATION.")))
+   (let ((*accentuation-alist* (cons '(#\c . #\ć) *accentuation-alist*)))
+     (is (remove-accentuation test-string)
+         "c"
+         "(pushnew '(chars) *accentuation-alist*) works for #'REMOVE-ACCENTUATION."))))
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -92,5 +92,18 @@
     (is (slugify numbered-string)
         numbered-string
         "#'SLUGIFY doesn't mess with numbers in the string.")))
+
+(deftest test-remove-*-independence
+  (let ((string-example "A string with accentuation (á, é and Ü), ponctuation (!, ? and the parentheses =p ), and special chars (ß, œ and æ)."))
+    (is (remove-accentuation  (remove-ponctuation   string-example))
+        (remove-ponctuation   (remove-accentuation  string-example))
+        "#'REMOVE-ACCENTUATION and #'REMOVE-PONCTUATION doesn't mess with each other.")
+
+    (is (remove-accentuation  (remove-special-chars string-example))
+        (remove-special-chars (remove-accentuation  string-example))
+        "#'REMOVE-ACCENTUATION and #'REMOVE-SPECIAL-CHARS doesn't mess with each other.")
+    (is (remove-ponctuation   (remove-special-chars string-example))
+        (remove-special-chars (remove-ponctuation   string-example))
+        "#'REMOVE-PONCTUATION and #'REMOVE-SPECIAL-CHARS doesn't mess with each other.")))
 
 (run-test-all)
