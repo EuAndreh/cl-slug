@@ -29,5 +29,6 @@ install:
   - git clone https://github.com/EuAndreh/cl-slug
 
 script:
+  - cl
   - cl -e "(ql:quickload '(prove cl-slug))"
        -e '(asdf:test-system :cl-slug)'

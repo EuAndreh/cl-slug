@@ -1,3 +1,4 @@
+(in-package cl-user)
 (defpackage cl-slug
   (:use cl)
   (:export *accentuation-alist*

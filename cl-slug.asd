@@ -1,3 +1,4 @@
+(in-package cl-user)
 (defpackage cl-slug-asd
   (:use cl asdf))
 (in-package cl-slug-asd)
