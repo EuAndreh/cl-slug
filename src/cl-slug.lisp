@@ -8,15 +8,16 @@
            slugify))
 (in-package cl-slug)
 
-(defparameter *special-chars-alist* '(("ss" . "ß"))
+(defparameter *special-chars-alist* '(("ss" . "ß") ("oe" . "œ") ("ae" . "æ"))
   "Alist with special chars that beahve differently from others.")
 
 (defparameter *accentuation-alist*
   (let ((chars '((#\A . #\Á) (#\E . #\É) (#\I . #\Í) (#\O . #\Ó) (#\U . #\Ú)
-                 (#\A . #\Â) (#\E . #\È)             (#\O . #\Ô) (#\U . #\Ü)
-                 (#\A . #\À) (#\E . #\Ê)             (#\O . #\Õ) (#\U . #\Ŭ)
-                 (#\A . #\Ã)                         (#\O . #\Ö)
-                 (#\A . #\Ä)
+                 (#\A . #\Â) (#\E . #\È) (#\I . #\Î) (#\O . #\Ô) (#\U . #\Ü)
+                 (#\A . #\À) (#\E . #\Ê) (#\I . #\Ï) (#\O . #\Õ) (#\U . #\Ŭ)
+                 (#\A . #\Ã) (#\E . #\Ë)             (#\O . #\Ö) (#\U . #\Ù)
+                 (#\A . #\Ä)                         (#\O . #\Ô) (#\U . #\Û)
+                                                     (#\O . #\Ö)
 
                  (#\C . #\Ç) (#\G . #\Ĝ) (#\H . #\Ĥ) (#\J . #\Ĵ) (#\S . #\Ŝ)
                  (#\C . #\Ĉ))))
