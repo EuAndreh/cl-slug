@@ -1,5 +1,5 @@
 * cl-slug
-  Easily create slugs from any string. Supports english, portuguese, esperanto and german strings.
+  Easily create slugs from any string. Supports english, portuguese, esperanto, german and french strings.
 
   Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-putting-it-together-updated-blog-example][Lisp Web Tales]].
 ** Usage
@@ -35,14 +35,14 @@
 #+END_SRC
    Note: if you find yourself doin't that too often, consider creating a pull request to add it to the source.
 
-   =slugify= is built on three other functions, =remove-ponctuation=, =remove-accentuation= and =remove-special-chars=:
+   =slugify= is just a concatenation of four other functions, =string-downcase= (built-in), =remove-ponctuation=, =remove-accentuation= and =remove-special-chars=:
 #+BEGIN_SRC lisp
 * (remove-ponctuation "String with a comma, a dot (.) and parentheses")
 ; => "String-with-a-comma-a-dot-and-parentheses"
 * (remove-accentuation "André Miranda")
 ; => "Andre Miranda"
-* (remove-special-chars "Groß")
-; => "Gross"
+* (remove-special-chars "Großæ")
+; => "Grossae"
 #+END_SRC
    All those functions also ignore numbers:
 #+BEGIN_SRC lisp
