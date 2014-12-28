@@ -26,8 +26,6 @@ install:
       curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
     fi
 
-  - git clone https://github.com/EuAndreh/cl-slug
-
 script:
   - cl
   - cl -e "(ql:quickload '(prove cl-slug))"
