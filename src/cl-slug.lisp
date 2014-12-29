@@ -6,7 +6,8 @@
            remove-accentuation
            remove-ponctuation
            remove-special-chars
-           slugify))
+           slugify)
+  (:documentation "Main (and only) package."))
 (in-package cl-slug)
 
 (defparameter *special-chars-alist* '(("ss" . "ß") ("oe" . "œ") ("ae" . "æ"))
