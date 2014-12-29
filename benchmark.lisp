@@ -12,22 +12,32 @@
 (defparameter string-example-ascii "A string with accentuation, ponctuation or special characters whatsoever.")
 
 (defun cl-slug-benchmark (n)
-  (format t "#'SLUGIFY benchmark with special char and accentuation:~%")
+  (format *trace-output*
+          "#'SLUGIFY benchmark with special char and accentuation:~%")
   (time (dotimes (i n)
           (slugify string-example-special)))
 
-  (format t "#'SLUGIFY-EN benchmark with special char and accentuation:~%")
+  (format *trace-output*
+          "#'SLUGIFY-EN benchmark with special char and accentuation:~%")
   (time (dotimes (i n)
           (slugify-en string-example-special)))
 
-  (format t "#'SLUGIFY benchmark without special char or accentuation:~%")
+  (format *trace-output*
+          "#'SLUGIFY benchmark without special char or accentuation:~%")
   (time (dotimes (i n)
           (slugify string-example-ascii)))
 
-  (format t "#'SLUGIFY-EN benchmark without special char or accentuation:~%")
+  (format *trace-output*
+          "#'SLUGIFY-EN benchmark without special char or accentuation:~%")
   (time (dotimes (i n)
           (slugify-en string-example-ascii))))
 
 (compile 'cl-slug-benchmark)
 
-(cl-slug-benchmark 100000)
+(princ "Running benchmarks...")
+(with-open-file (*trace-output* #p"benchmark-output.log"
+                                   :direction :output
+                                   :if-exists :supersede
+                                   :if-does-not-exist :create)
+  (cl-slug-benchmark 100000))
+(princ "Done.")
