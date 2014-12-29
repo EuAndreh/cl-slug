@@ -72,6 +72,9 @@
   (is (slugify "My new cool article, for the blog (V. 2).")
       "my-new-cool-article-for-the-blog-v-2"
       "Works with generic article title.")
+  (is (slugify "This, That & the Other! Various Outré Considerations")
+      "this-that-the-other-various-outre-considerations"
+      "Wikipedia (http://en.wikipedia.org/wiki/Semantic_URL#Slug) example works.")
   (let ((slugged-string "my-string"))
     (is (slugify slugged-string)
         slugged-string

@@ -45,6 +45,17 @@
 ; => "Andre Miranda"
 * (remove-special-chars "Großæ")
 ; => "Grossae"
+
+; Taken from http://en.wikipedia.org/wiki/Semantic_URL#Slug:
+* (remove-ponctuation
+   (remove-accentuation
+    (remove-special-chars
+     (string-downcase "This, That & the Other! Various Outré Considerations"))))
+; => "this-that-the-other-various-outre-considerations"
+* (slugify "This, That & the Other! Various Outré Considerations")
+; => "this-that-the-other-various-outre-considerations"
+* (string= * **)
+; => T
 #+END_SRC
    All those functions also ignore numbers:
 #+BEGIN_SRC lisp
