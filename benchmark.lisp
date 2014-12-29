@@ -13,20 +13,20 @@
 
 (defun cl-slug-benchmark (n)
   (format t "#'SLUGIFY benchmark with special char and accentuation:~%")
-  (time (loop for i from 0 to n do
-             (slugify string-example-special)))
+  (time (dotimes (i n)
+          (slugify string-example-special)))
 
   (format t "#'SLUGIFY-EN benchmark with special char and accentuation:~%")
-  (time (loop for i from 0 to n do
-             (slugify-en string-example-special)))
+  (time (dotimes (i n)
+          (slugify-en string-example-special)))
 
   (format t "#'SLUGIFY benchmark without special char or accentuation:~%")
-  (time (loop for i from 0 to n do
-             (slugify string-example-ascii)))
+  (time (dotimes (i n)
+          (slugify string-example-ascii)))
 
   (format t "#'SLUGIFY-EN benchmark without special char or accentuation:~%")
-  (time (loop for i from 0 to n do
-             (slugify-en string-example-ascii))))
+  (time (dotimes (i n)
+          (slugify-en string-example-ascii))))
 
 (compile 'cl-slug-benchmark)
 
