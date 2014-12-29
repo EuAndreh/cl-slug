@@ -80,15 +80,15 @@
         slugged-string
         "Doesn't mess with an already #'SLUGIFied string.")))
 
-(deftest slugify-test
-  (is (slugify "My new cool article, for the blog (V. 2).")
+(deftest slugify-en-test
+  (is (slugify-en "My new cool article, for the blog (V. 2).")
       "my-new-cool-article-for-the-blog-v-2"
       "Works with generic article title.")
-  (is (slugify "This, That & the Other! Various Outré Considerations")
+  (is (slugify-en "This, That & the Other! Various Outré Considerations")
       "this-that-the-other-various-outré-considerations"
       "Works, but doesn't remove accentuated chars, as expected.")
   (let ((slugged-string "my-string"))
-    (is (slugify slugged-string)
+    (is (slugify-en slugged-string)
         slugged-string
         "Doesn't mess with an already #'SLUGIFied string.")))
 
