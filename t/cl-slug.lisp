@@ -5,7 +5,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 9)
+(plan 10)
 
 (deftest test-*accentuation-alist*-pairs-equivalence
   (let ((accentuated-side (with-output-to-string (s)
@@ -75,6 +75,18 @@
   (is (slugify "This, That & the Other! Various Outré Considerations")
       "this-that-the-other-various-outre-considerations"
       "Wikipedia (http://en.wikipedia.org/wiki/Semantic_URL#Slug) example works.")
+  (let ((slugged-string "my-string"))
+    (is (slugify slugged-string)
+        slugged-string
+        "Doesn't mess with an already #'SLUGIFied string.")))
+
+(deftest slugify-test
+  (is (slugify "My new cool article, for the blog (V. 2).")
+      "my-new-cool-article-for-the-blog-v-2"
+      "Works with generic article title.")
+  (is (slugify "This, That & the Other! Various Outré Considerations")
+      "this-that-the-other-various-outré-considerations"
+      "Works, but doesn't remove accentuated chars, as expected.")
   (let ((slugged-string "my-string"))
     (is (slugify slugged-string)
         slugged-string

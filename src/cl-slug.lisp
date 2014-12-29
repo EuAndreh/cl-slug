@@ -6,7 +6,8 @@
            remove-accentuation
            remove-ponctuation
            remove-special-chars
-           slugify)
+           slugify
+           slugify-en)
   (:documentation "Main (and only) package."))
 (in-package cl-slug)
 
@@ -84,3 +85,7 @@
    (string-downcase
     (remove-special-chars
      (remove-ponctuation string)))))
+
+(defun slugify-en (string)
+  "Does the same job as #'SLUGIFY, but works only with the ASCII charset. If it finds any char from outside of ASCII it doesn't remove it. Use it to slugify english strings faster."
+  (string-downcase (remove-ponctuation string)))
