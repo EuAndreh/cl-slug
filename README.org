@@ -65,7 +65,7 @@
 
    If you will use it only for english strings, use =slugify-en= for better (~10x) performance.
 ** Dependencies
-   The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
+   This library depends only on the [[http://weitz.de/cl-ppcre/][CL-PPCRE]] library. The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
 
 ** Installation
    1. =cd= to your [[quicklisp.org][Quicklisp]] =local-projects= folder.
