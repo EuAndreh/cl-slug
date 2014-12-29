@@ -40,4 +40,4 @@
                                    :if-exists :supersede
                                    :if-does-not-exist :create)
   (cl-slug-benchmark 100000))
-(princ "Done.")
+(princ "done.")
