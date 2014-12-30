@@ -1,5 +1,5 @@
 #!/usr/local/bin/sbcl --script
-(load "~/.sbclrc") ;; load the quicklist initalization form
+(load "~/.sbclrc") ;; load the quicklisp initalization form
 (ql:quickload :cl-slug)
 
 (in-package cl-user)
@@ -32,7 +32,9 @@
   (time (dotimes (i n)
           (slugify-en string-example-ascii))))
 
+(princ "Compiling benchmark...")
 (compile 'cl-slug-benchmark)
+(princ "done.")
 
 (princ "Running benchmarks...")
 (with-open-file (*trace-output* #p"benchmark-output.log"
