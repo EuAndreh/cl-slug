@@ -13,7 +13,7 @@
 
 (defun cl-slug-benchmark (n)
   (format *trace-output*
-          "#'SLUGIFY benchmark with special char and accentuation:~%")
+          "~&#'SLUGIFY benchmark with special char and accentuation:~%")
   (time (dotimes (i n)
           (slugify string-example-special)))
 
@@ -37,9 +37,6 @@
 (princ "done.")
 
 (princ "Running benchmarks...")
-(with-open-file (*trace-output* #p"benchmark-output.log"
-                                   :direction :output
-                                   :if-exists :supersede
-                                   :if-does-not-exist :create)
-  (cl-slug-benchmark 100000))
+(cl-slug-benchmark 100)
 (princ "done.")
+(princ #\Newline)
