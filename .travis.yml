@@ -13,11 +13,6 @@ env:
 #    - LISP=cmucl
     - LISP=ecl
 
-#matrix:
-#  allow_failures:
-    # CIM not available for CMUCL
-#    - env: LISP=cmucl
-
 install:
   - if [ -x ./install.sh ] && head -2 ./install.sh | grep '^# cl-travis' > /dev/null;
     then
@@ -36,10 +31,6 @@ script:
                  (lambda (c h)
                    (declare (ignore c h))
                    (uiop:quit -1)))'
-       -e '(let ((test-results (prove:run (merge-pathnames
-                                           "t/cl-slug.lisp"
-                                           (ql:where-is-system :cl-slug)))))
-             (print test-results)
+       -e '(let ((test-results (prove:run :cl-slug-test)))
              (or test-results
                  (uiop:quit -1)))'
-#       -e '(asdf:test-system :cl-slug)'
