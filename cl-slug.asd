@@ -11,7 +11,7 @@
   :components ((:module "src"
                 :components
                 ((:file "cl-slug"))))
-  :description "Small library to make slugs, mainly for URIs."
+  :description "Small library to make slugs, mainly for URIs, from english and beyond."
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"README.org"
