@@ -122,4 +122,9 @@
         (remove-special-chars (remove-ponctuation   string-example))
         "#'REMOVE-PONCTUATION and #'REMOVE-SPECIAL-CHARS doesn't mess with each other.")))
 
+(deftest test-multi-language-slugify
+  (is (slugify "A string with special chars (like ! and ?), portuguese (á), french (è), esperanto (ŭ), german (ß) and swedish (å) related stuff.")
+      "a-string-with-special-chars-like-and-portuguese-a-french-e-esperanto-u-german-ss-and-swedish-a-related-stuff"
+      "Slugify seems to handle all (claimed to be) supported languages."))
+
 (run-test-all)
