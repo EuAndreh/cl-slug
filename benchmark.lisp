@@ -35,8 +35,9 @@
 (princ "Compiling benchmark...")
 (compile 'cl-slug-benchmark)
 (princ "done.")
+(princ #\Newline)
 
 (princ "Running benchmarks...")
-(cl-slug-benchmark 100)
+(cl-slug-benchmark 100000)
 (princ "done.")
 (princ #\Newline)

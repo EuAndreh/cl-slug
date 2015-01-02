@@ -85,7 +85,49 @@
    Tests are also ran with [[https://travis-ci.org/EuAndreh/cl-slug][Travis CI]] using [[https://github.com/luismbo/cl-travis][cl-travis]] and [[https://github.com/KeenS/CIM][CIM]]. Check it out!
 
 ** Benchmark
-   There is a +silly+ [[https://github.com/EuAndreh/cl-slug/blob/master/benchmark.lisp][benchmark]] that you can run (=$ sbcl --script benchmark.lisp= or =$ ./benchmark.lisp=) and see the difference between =slugify= and =slugify-en=.
+   There is a +silly+ [[https://github.com/EuAndreh/cl-slug/blob/master/benchmark.lisp][benchmark]] that you can run (=$ sbcl --script benchmark.lisp= or =$ ./benchmark.lisp=) and see the difference between =slugify= and =slugify-en=:
+#+BEGIN_SRC lisp
+$ ./benchmark.lisp
+Compiling benchmark...done.
+Running benchmarks...
+#'SLUGIFY benchmark with special char and accentuation:
+Evaluation took:
+  8.396 seconds of real time
+  8.400461 seconds of total run time (8.379872 user, 0.020589 system)
+  [ Run times consist of 0.157 seconds GC time, and 8.244 seconds non-GC time. ]
+  100.05% CPU
+  20,942,962,465 processor cycles
+  1,390,399,856 bytes consed
+
+#'SLUGIFY-EN benchmark with special char and accentuation:
+Evaluation took:
+  0.887 seconds of real time
+  0.887189 seconds of total run time (0.885653 user, 0.001536 system)
+  [ Run times consist of 0.028 seconds GC time, and 0.860 seconds non-GC time. ]
+  100.00% CPU
+  2,212,087,702 processor cycles
+  294,403,648 bytes consed
+
+#'SLUGIFY benchmark without special char or accentuation:
+Evaluation took:
+  5.627 seconds of real time
+  5.629947 seconds of total run time (5.622697 user, 0.007250 system)
+  [ Run times consist of 0.078 seconds GC time, and 5.552 seconds non-GC time. ]
+  100.05% CPU
+  14,035,823,389 processor cycles
+  686,377,136 bytes consed
+
+#'SLUGIFY-EN benchmark without special char or accentuation:
+Evaluation took:
+  0.596 seconds of real time
+  0.595885 seconds of total run time (0.594760 user, 0.001125 system)
+  [ Run times consist of 0.023 seconds GC time, and 0.573 seconds non-GC time. ]
+  100.00% CPU
+  1,485,855,618 processor cycles
+  193,588,208 bytes consed
+
+done.
+#+END_SRC
 
    I didn't find an slugifying function in other languages with similar functionalities to compare with my implementation. Most of them simply removes any special character or ponctuation. If you find any, give me a hint.
 ** Author
