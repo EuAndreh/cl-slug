@@ -1,7 +1,7 @@
 * cl-slug
   [[https://travis-ci.org/EuAndreh/cl-slug][https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master]]
 
-  Easily create slugs from any string. Supports english, portuguese, esperanto, german, french, swedish and norwegian strings.
+  Easily create slugs from any string. Supports english, portuguese, esperanto, german, french, swedish/finnish and norwegian/danish strings.
 
   Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes][Lisp Web Tales]].
 ** Usage
