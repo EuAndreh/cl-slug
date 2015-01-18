@@ -44,7 +44,7 @@
    This library depends only on the [[http://weitz.de/cl-ppcre/][CL-PPCRE]] library. The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
 
 ** Installation
-   Now available on [[quicklisp.org][Quicklisp]]!
+   Now available on [[http://quicklisp.org][Quicklisp]]!
 
 ** Supported languages
    English, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian and spanish strings.
