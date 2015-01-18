@@ -1,23 +1,21 @@
 * cl-slug
   [[https://travis-ci.org/EuAndreh/cl-slug][https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master]]
 
-  Easily create slugs from any string. Supports english, portuguese, esperanto, german, french, swedish/finnish and norwegian/danish strings.
+  Easily create slugs from any string. Supports many languages alphabets.
 
   Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes][Lisp Web Tales]].
 ** Usage
 #+BEGIN_SRC lisp
 * (progn
     (ql:quickload :cl-slug)
-    (defpackage cl-slug-user
-      (:use cl cl-slug))
-    (in-package cl-slug-user))
+    (import 'cl-slug:slugify))
 ; => T
 #+END_SRC
-   The main function is called =slugify=:
+   The main (and only) function is called =slugify=:
 #+BEGIN_SRC lisp
 * (slugify "My new cool article, for the blog (V. 2).")
 ; => "my-new-cool-article-for-the-blog-v-2"
-* (slugify "André Miranda")
+* (slugify "André Miranda" :pt)
 ; => "andre-miranda"
 #+END_SRC
    =slugify= removes any accentuated character, replacing it with an unaccentuated equivalent, and any ponctuation (a ponctuation is a char that returns =NIL= for =alphanumericp=) and puts a dash (=-=) on it's place. You can change that by binding (of =setf=ing) =*slug-separator*=:
@@ -26,51 +24,30 @@
     (slugify "Testing the *slug-separator* var..."))
 ; => "testing_the_slug_separator_var"
 #+END_SRC
-   If there's an accentuated character that cl-slug doesn't cover, you can simply add to =*accentuation-alist*=:
-#+BEGIN_SRC lisp
-* (slugify "ć")
-; => "ć"
-* (pushnew '(#\c . #\ć) *accentuation-alist*)
-; prints the whole alist...
-* (slugify "ć")
-; => "c"
-#+END_SRC
-   Note: if you find yourself doin't that too often, consider creating a pull request to add it to the source.
 
-   =slugify= is just a concatenation of four other functions, =string-downcase= (built-in), =remove-ponctuation=, =remove-accentuation= and =remove-special-chars=:
-#+BEGIN_SRC lisp
-* (remove-ponctuation "String with a comma, a dot (.) and parentheses")
-; => "String-with-a-comma-a-dot-and-parentheses"
-* (remove-accentuation "André Miranda")
-; => "Andre Miranda"
-* (remove-special-chars "Großæ")
-; => "Grossae"
-
-; Taken from http://en.wikipedia.org/wiki/Semantic_URL#Slug:
-* (remove-ponctuation
-   (remove-accentuation
-    (remove-special-chars
-     (string-downcase "This, That & the Other! Various Outré Considerations"))))
-; => "this-that-the-other-various-outre-considerations"
-* (slugify "This, That & the Other! Various Outré Considerations")
-; => "this-that-the-other-various-outre-considerations"
-* (string= * **)
-; => T
-#+END_SRC
-   All those functions also ignore numbers:
+   =slugify= also ignore numbers:
 #+BEGIN_SRC lisp
 * (slugify "one2three4five")
 ; => "one2three4five"
 #+END_SRC
 
-   If you will use it only for english strings, use =slugify-en= for better (~10x) performance.
+   =slugify= by default looks only for ponctuation characters. If you want to use it with any of the supported languages, specify it on the =charset= optional parameter:
+#+BEGIN_SRC lisp
+* (slugify "My string with esperanto language characters (ĉ, and ŭ)" :eo)
+; => "my-string-with-esperanto-language-characters-c-and-u"
+* (slugify "My string with swedish language characters (ä, ö, ü and å)" :sv)
+; => "my-string-with-swedish-language-characters-a-o-u-and-aa"
+#+END_SRC
+   If you want to use =slugify= (for some crazy reason) to create slugs from multi-language strings, use the =:all= option.
+
 ** Dependencies
    This library depends only on the [[http://weitz.de/cl-ppcre/][CL-PPCRE]] library. The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
 
 ** Installation
-   1. =cd= to your [[quicklisp.org][Quicklisp]] =local-projects= folder.
-   2. Clone the repo =git clone https://github.com/EuAndreh/cl-slug=.
-   3. Load it with Quicklisp: =(ql:quickload :cl-slug)=
+   Now available on [[quicklisp.org][Quicklisp]]!
+
+** Supported languages
+   english, portuguese, esperanto, german, french, swedish/finnish, norwegian/danish, italian and spanish strings.
 
 ** Bugs
    If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
@@ -84,52 +61,6 @@
 #+END_SRC
    Tests are also ran with [[https://travis-ci.org/EuAndreh/cl-slug][Travis CI]] using [[https://github.com/luismbo/cl-travis][cl-travis]] and [[https://github.com/KeenS/CIM][CIM]]. Check it out!
 
-** Benchmark
-   There is a +silly+ [[https://github.com/EuAndreh/cl-slug/blob/master/benchmark.lisp][benchmark]] that you can run (=$ sbcl --script benchmark.lisp= or =$ ./benchmark.lisp=) and see the difference between =slugify= and =slugify-en=:
-#+BEGIN_SRC lisp
-$ ./benchmark.lisp
-Compiling benchmark...done.
-Running benchmarks...
-#'SLUGIFY benchmark with special char and accentuation:
-Evaluation took:
-  8.396 seconds of real time
-  8.400461 seconds of total run time (8.379872 user, 0.020589 system)
-  [ Run times consist of 0.157 seconds GC time, and 8.244 seconds non-GC time. ]
-  100.05% CPU
-  20,942,962,465 processor cycles
-  1,390,399,856 bytes consed
-
-#'SLUGIFY-EN benchmark with special char and accentuation:
-Evaluation took:
-  0.887 seconds of real time
-  0.887189 seconds of total run time (0.885653 user, 0.001536 system)
-  [ Run times consist of 0.028 seconds GC time, and 0.860 seconds non-GC time. ]
-  100.00% CPU
-  2,212,087,702 processor cycles
-  294,403,648 bytes consed
-
-#'SLUGIFY benchmark without special char or accentuation:
-Evaluation took:
-  5.627 seconds of real time
-  5.629947 seconds of total run time (5.622697 user, 0.007250 system)
-  [ Run times consist of 0.078 seconds GC time, and 5.552 seconds non-GC time. ]
-  100.05% CPU
-  14,035,823,389 processor cycles
-  686,377,136 bytes consed
-
-#'SLUGIFY-EN benchmark without special char or accentuation:
-Evaluation took:
-  0.596 seconds of real time
-  0.595885 seconds of total run time (0.594760 user, 0.001125 system)
-  [ Run times consist of 0.023 seconds GC time, and 0.573 seconds non-GC time. ]
-  100.00% CPU
-  1,485,855,618 processor cycles
-  193,588,208 bytes consed
-
-done.
-#+END_SRC
-
-   I didn't find an slugifying function in other languages with similar functionalities to compare with my implementation. Most of them simply removes any special character or ponctuation. If you find any, give me a hint.
 ** Author
 
 + André Miranda

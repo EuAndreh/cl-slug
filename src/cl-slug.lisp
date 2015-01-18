@@ -1,37 +1,113 @@
 (in-package cl-user)
 (defpackage cl-slug
   (:use cl)
-  (:export *accentuation-alist*
-           *slug-separator*
-           remove-accentuation
-           remove-ponctuation
-           remove-special-chars
-           slugify
-           slugify-en)
+  (:export slugify)
   (:documentation "Main (and only) package."))
 (in-package cl-slug)
 
-(defparameter *special-chars-alist* '(("ss" . "ß") ("oe" . "œ") ("ae" . "æ"))
-  "Alist with special chars that beahve differently from others.")
+(defparameter *available-languages* ()
+  "Alist with (`key' . `language-namestring').")
 
-(defparameter *accentuation-alist*
-  (let ((chars '((#\A . #\Á) (#\E . #\É) (#\I . #\Í) (#\O . #\Ó) (#\U . #\Ú)
-                 (#\A . #\Â) (#\E . #\È) (#\I . #\Î) (#\O . #\Ô) (#\U . #\Ü)
-                 (#\A . #\À) (#\E . #\Ê) (#\I . #\Ï) (#\O . #\Õ) (#\U . #\Ŭ)
-                 (#\A . #\Ã) (#\E . #\Ë)             (#\O . #\Ö) (#\U . #\Ù)
-                 (#\A . #\Ä)                         (#\O . #\Ô) (#\U . #\Û)
-                 (#\A . #\Å)                         (#\O . #\Ö)
-                                                     (#\O . #\Ø)
+(defvar *special-chars-alist* ()
+  "Special var to hold alist with special chars that behave differently from others.")
 
-                 (#\C . #\Ç) (#\G . #\Ĝ) (#\H . #\Ĥ) (#\J . #\Ĵ) (#\S . #\Ŝ)
-                 (#\C . #\Ĉ))))
-    (append chars (mapcar (lambda (pair)
-                            (cons (char-downcase (car pair))
-                                  (char-downcase (cdr pair))))
-                          chars)))
-  "Alist with accentuated chars and their respective accentless char.")
+(defvar *accentuation-alist* ()
+  "Special var to hold alist with accentuated chars and their respective accentless char.")
 
 (defparameter *slug-separator* #\- "Default separator of slug strings.")
+
+(defparameter %langname->accentuation-alist (make-hash-table)
+  "Hash table that holds the alist of accentuation from each language indexed by key.")
+
+(defparameter %langname->special-chars-alist (make-hash-table)
+  "Hash table that holds the alist of special characters from each language indexed by key.")
+
+(defmacro add-language (name key-code accentuation-alist
+                        &optional special-chars-alist)
+  "Adds a language to both hash tables (`%langname->accentuation-alist' and `%langname->special-chars-alist') and the language `name' + `key-code' to `*available-languages*'. Also adds all new special and accentuated chars to the `:all' entry on both hash tables."
+  (flet ((add-upcase-char (alist)
+           "Adds an equivalent upcase character cons pair to every cons pair."
+           (remove-duplicates
+            (append alist (mapcar (lambda (pair)
+                                    (cons (char-upcase (car pair))
+                                          (char-upcase (cdr pair))))
+                                  alist))))
+         (add-upcase-string (alist)
+           "Adds an equivalent upcase string cons pair to every string cons pair that has a second element that changes from downcase to upcase."
+           (remove-duplicates
+            (append alist (mapcar (lambda (pair)
+                                    (cons (string-upcase (car pair))
+                                          (string-upcase (cdr pair))))
+                                  alist))
+             :test #'string= :key #'cdr :from-end t)))
+    `(progn
+       (pushnew (cons ,key-code ,name) *available-languages* :key #'car)
+       (setf (gethash ,key-code %langname->accentuation-alist)
+             ',accentuation-alist
+             (gethash ,key-code %langname->special-chars-alist)
+             ',special-chars-alist)
+       ,@(mapcar (lambda (pair)
+                   `(pushnew ',pair (gethash :all %langname->accentuation-alist)
+                             :key #'cdr))
+                 (add-upcase-char accentuation-alist))
+       ,@(mapcar (lambda (pair)
+                   `(pushnew ',pair (gethash :all %langname->special-chars-alist)
+                             :key #'cdr))
+                 (add-upcase-string special-chars-alist))
+       ,key-code)))
+
+(add-language "Dansk (Danish)" :da
+              ((#\e . #\è) (#\o . #\ò) (#\a . #\â)
+               (#\e . #\é) (#\o . #\ó)
+               (#\e . #\ê) (#\o . #\ô)
+                           (#\o . #\ø))
+              (("aa" . "å") ("ae" . "æ")))
+
+(add-language "Deutsch (German)" :de
+              ((#\a . #\ä) (#\e . #\ë) (#\i . #\ï) (#\o . #\ö) (#\u . #\ü))
+              (("ss" . "ß")))
+
+(add-language "English" :en ())
+
+(add-language "Español (Spanish)" :es
+              ((#\a . #\á) (#\e . #\é) (#\i . #\í) (#\o . #\ó) (#\u . #\ú)
+               (#\n . #\ñ)             (#\i . #\ï)             (#\u . #\ü)))
+
+(add-language "Esperanto" :eo
+              ((#\c . #\ĉ) (#\g . #\ĝ) (#\h . #\ĥ) (#\j . #\ĵ) (#\s . #\ŝ)
+               (#\u . #\ŭ)))
+
+(add-language "Français (French)" :fr
+              ((#\a . #\â) (#\e . #\ê) (#\i . #\î) (#\o . #\ô) (#\u . #\û)
+               (#\a . #\à) (#\e . #\è)                         (#\u . #\ù)
+                           (#\e . #\é)
+                           (#\e . #\ë) (#\i . #\ï)             (#\u . #\ü)
+               (#\c . #\ç) (#\y . #\ÿ) (#\i . #\î))
+              (("oe" . "œ") ("ae" . "æ")))
+
+(add-language "Italiano (Italian)" :it
+              ((#\e . #\è) (#\o . #\ò) (#\i . #\î)
+               (#\e . #\é) (#\o . #\ó)))
+
+(add-language "Português (Portuguese)" :pt
+              ((#\a . #\á) (#\e . #\é) (#\i . #\í) (#\o . #\ó) (#\u . #\ú)
+               (#\a . #\â) (#\e . #\ê)             (#\o . #\ô) (#\u . #\ü)
+               (#\a . #\à)             (#\c . #\ç) (#\o . #\õ)
+               (#\a . #\ã)))
+
+(add-language "Norsk (Norwegian)" :no
+              ((#\e . #\è) (#\o . #\ò) (#\a . #\â)
+               (#\e . #\é) (#\o . #\ó)
+               (#\e . #\ê) (#\o . #\ô)
+                           (#\o . #\ø))
+              (("aa" . "å") ("ae" . "æ")))
+
+(add-language "Suomi (Finnish)" :fi
+              ((#\a . #\ä) (#\o . #\ö) (#\u . #\ü)))
+
+(add-language "Svenska (Swedish)" :sv
+              ((#\a . #\ä) (#\o . #\ö) (#\u . #\ü))
+              (("aa" . "å")))
 
 (defun remove-accentuation (string)
   "Removes accentuation (according to *ACCENTUATION-ALIST*) from STRING."
@@ -80,13 +156,12 @@
                  str)))
     (rec *special-chars-alist* string)))
 
-(defun slugify (string)
+(defun slugify (string &optional (charset :en))
   "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
-  (remove-accentuation
-   (string-downcase
-    (remove-special-chars
-     (remove-ponctuation string)))))
-
-(defun slugify-en (string)
-  "Does the same job as #'SLUGIFY, but works only with the ASCII charset. If it finds any char from outside of ASCII it doesn't remove it. Use it to slugify english strings faster."
-  (string-downcase (remove-ponctuation string)))
+  (let ((*accentuation-alist* (or (gethash charset %langname->accentuation-alist)
+                                  (error "Invalid charset option: ~S" charset)))
+        (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
+    (remove-accentuation
+     (string-downcase
+      (remove-special-chars
+       (remove-ponctuation string))))))

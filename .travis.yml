@@ -5,11 +5,8 @@ env:
 #    - LISP=abcl
     - LISP=allegro
     - LISP=sbcl
-    - LISP=sbcl32
     - LISP=ccl
-    - LISP=ccl32
     - LISP=clisp
-    - LISP=clisp32
 #    - LISP=cmucl
     - LISP=ecl
 
@@ -21,8 +18,6 @@ install:
       curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
     fi
 
-  - git clone https://github.com/fukamachi/prove
-
 script:
   - cl -e '(in-package :cl-user)'
        -e "(ql:quickload '(prove cl-slug))"
@@ -31,6 +26,5 @@ script:
                  (lambda (c h)
                    (declare (ignore c h))
                    (uiop:quit -1)))'
-       -e '(let ((test-results (prove:run :cl-slug-test)))
-             (or test-results
-                 (uiop:quit -1)))'
+       -e '(or (prove:run :cl-slug-test)
+               (uiop:quit -1))'
