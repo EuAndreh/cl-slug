@@ -47,7 +47,7 @@
    Now available on [[quicklisp.org][Quicklisp]]!
 
 ** Supported languages
-   english, portuguese, esperanto, german, french, swedish/finnish, norwegian/danish, italian and spanish strings.
+   English, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian and spanish strings.
 
 ** Bugs
    If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
