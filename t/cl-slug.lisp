@@ -26,7 +26,7 @@
       "using-setf-slug-separator-to-change-back"
       "Changing back with SETF also works."))
 
-(deftest slugify-test
+(deftest slugify-test-languages
   (is (slugify "My new cool article, for the blog (V. 2).")
       "my-new-cool-article-for-the-blog-v-2"
       "Works with generic article title.")
@@ -34,7 +34,7 @@
       "this-that-the-other-various-outre-considerations"
       "Wikipedia (http://en.wikipedia.org/wiki/Semantic_URL#Slug) example works.")
   (is (slugify "String with chars from many languages: ø, å, ä, ß, ñ, ĉ, ŝ, ê, ç, ó, õ, æ, ü and ö" :all)
-      "string-with-chars-from-many-languages-ø-aa-a-ss-ñ-c-s-ê-ç-ó-õ-ae-u-and-o"
+      "string-with-chars-from-many-languages-o-aa-a-ss-n-c-s-e-c-o-o-ae-u-and-o"
       "Works with the :ALL option.")
   (let ((slugged-string "my-string"))
     (is (slugify slugged-string)
@@ -42,15 +42,8 @@
         "Doesn't mess with an already #'SLUGIFied string.")))
 
 (deftest string-with-numbers-test
-  (let ((numbered-string "one2three4five"))
-    (is (remove-accentuation numbered-string)
-        numbered-string
-        "#'REMOVE-ACCENTUATION doesn't mess with numbers in the string.")
-    (is (remove-ponctuation numbered-string)
-        numbered-string
-        "#'REMOVE-PONCTUATION doesn't mess with numbers in the string.")
-    (is (slugify numbered-string)
-        numbered-string
-        "#'SLUGIFY doesn't mess with numbers in the string.")))
+  (is (slugify "one2three4five")
+      "one2three4five"
+      "#'SLUGIFY doesn't mess with numbers in the string."))
 
 (run-test-all)

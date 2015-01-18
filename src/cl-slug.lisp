@@ -1,7 +1,8 @@
 (in-package cl-user)
 (defpackage cl-slug
   (:use cl)
-  (:export slugify)
+  (:export slugify
+           *slug-separator*)
   (:documentation "Main (and only) package."))
 (in-package cl-slug)
 
@@ -158,8 +159,12 @@
 
 (defun slugify (string &optional (charset :en))
   "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
-  (let ((*accentuation-alist* (or (gethash charset %langname->accentuation-alist)
-                                  (error "Invalid charset option: ~S" charset)))
+  (let ((*accentuation-alist*
+         (multiple-value-bind (it win)
+             (gethash charset %langname->accentuation-alist)
+           (if win
+               it
+               (error "Invalid charset option: ~S" charset))))
         (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
     (remove-accentuation
      (string-downcase
