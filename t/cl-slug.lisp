@@ -34,7 +34,7 @@
       "this-that-the-other-various-outre-considerations"
       "Wikipedia (http://en.wikipedia.org/wiki/Semantic_URL#Slug) example works.")
   (is (slugify "String with chars from many languages: ø, å, ä, ß, ñ, ĉ, ŝ, ê, ç, ó, õ, æ, ï, ü and ö" :all)
-      "string-with-chars-from-many-languages-o-aa-a-ss-n-c-s-e-c-o-o-ae-u-and-o"
+      "string-with-chars-from-many-languages-o-aa-a-ss-n-c-s-e-c-o-o-ae-i-u-and-o"
       "Works with the :ALL option.")
   (let ((slugged-string "my-string"))
     (is (slugify slugged-string)
