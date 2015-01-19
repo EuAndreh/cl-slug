@@ -2,12 +2,10 @@ language: common-lisp
 
 env:
   matrix:
-#    - LISP=abcl
     - LISP=allegro
     - LISP=sbcl
     - LISP=ccl
     - LISP=clisp
-#    - LISP=cmucl
     - LISP=ecl
 
 install:
