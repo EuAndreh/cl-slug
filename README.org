@@ -1,7 +1,7 @@
 * cl-slug
   [[https://travis-ci.org/EuAndreh/cl-slug][https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master]]
 
-  Easily create slugs from any string. Supports many languages alphabets.
+  Easily create slugs from any string. Supports [[Supported languages][many languages alphabets]].
 
   Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes][Lisp Web Tales]].
 ** Usage
