@@ -1,10 +1,11 @@
 (in-package cl-user)
 (defpackage cl-slug
   (:use cl)
+  (:nicknames slug)
   (:export slugify
            turn-to-ascii-compatible
            *slug-separator*)
-  (:documentation "Main (and only) package."))
+  (:documentation "Main (and only) package. Nickname `slug' also available."))
 (in-package cl-slug)
 
 (defparameter *available-languages* ()
