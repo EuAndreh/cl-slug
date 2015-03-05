@@ -46,4 +46,12 @@
       "one2three4five"
       "#'SLUGIFY doesn't mess with numbers in the string."))
 
+(deftest turn-to-ascii-compatible-test
+  (is (turn-to-ascii-compatible "Eu André!")
+      "Eu André!"
+      "The default (:en) charset works, without removing any accentuation.")
+  (is (turn-to-ascii-compatible "Eu André!" :pt)
+      "Eu Andre!"
+      "The optional (:pt) charset works, removing portuguese accentuation."))
+
 (run-test-all)

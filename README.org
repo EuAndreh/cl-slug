@@ -40,6 +40,11 @@
 #+END_SRC
    If you want to use =slugify= (for some crazy reason) to create slugs from multi-language strings, use the =:all= option.
 
+   If you just want to remove accentuation and ponctuation of a given string, use =turn-to-ascii-compatible=:
+#+BEGIN_SRC lisp
+* (turn-to-ascii-compatible "Eu André!" :pt)
+"Eu Andre!"
+#+END_SRC
 ** Dependencies
    This library depends only on the [[http://weitz.de/cl-ppcre/][CL-PPCRE]] library. The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
 
@@ -53,6 +58,8 @@
    If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
 
 ** Tests
+   This library is tested under SBCL, Allegro, CCL, CLISP and ECL Common Lisp implementations.
+
    To run all the defined tests, use:
 #+BEGIN_SRC lisp
 * (asdf:test-system :cl-slug)

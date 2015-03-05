@@ -2,6 +2,7 @@
 (defpackage cl-slug
   (:use cl)
   (:export slugify
+           turn-to-ascii-compatible
            *slug-separator*)
   (:documentation "Main (and only) package."))
 (in-package cl-slug)
@@ -115,6 +116,7 @@
               ((#\a . #\ä) (#\o . #\ö) (#\u . #\ü))
               (("aa" . "å")))
 
+
 (defun remove-accentuation (string)
   "Removes accentuation (according to *ACCENTUATION-ALIST*) from STRING."
   (map 'string (lambda (char)
@@ -161,6 +163,17 @@
                                                  (car char-pair))))
                  str)))
     (rec *special-chars-alist* string)))
+
+(defun turn-to-ascii-compatible (string &optional (charset :en))
+  "Removes the accentuation and ponctuation of the given `string'."
+  (let ((*accentuation-alist*
+         (multiple-value-bind (it win)
+             (gethash charset %langname->accentuation-alist)
+           (if win
+               it
+               (error "Invalid charset option: ~S" charset))))
+        (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
+    (remove-accentuation (remove-special-chars string))))
 
 (defun slugify (string &optional (charset :en))
   "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
