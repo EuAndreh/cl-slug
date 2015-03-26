@@ -5,11 +5,11 @@
   (:export slugify
            turn-to-ascii-compatible
            *slug-separator*)
-  (:documentation "Main (and only) package. Nickname `slug' also available."))
+  (:documentation "Main (and only) package. Nickname SLUG also available."))
 (in-package cl-slug)
 
 (defparameter *available-languages* ()
-  "Alist with (`key' . `language-namestring').")
+  "Alist with (KEY . LANGUAGE-NAMESTRING).")
 
 (defvar *special-chars-alist* ()
   "Special var to hold alist with special chars that behave differently from others.")
@@ -27,7 +27,7 @@
 
 (defmacro add-language (name key-code accentuation-alist
                         &optional special-chars-alist)
-  "Adds a language to both hash tables (`%langname->accentuation-alist' and `%langname->special-chars-alist') and the language `name' + `key-code' to `*available-languages*'. Also adds all new special and accentuated chars to the `:all' entry on both hash tables."
+  "Adds a language to both hash tables (%LANGNAME->ACCENTUATION-ALIST and %LANGNAME->SPECIAL-CHARS-ALIST) and the language NAME + KEY-CODE to *AVAILABLE-LANGUAGES*. Also adds all new special and accentuated chars to the :ALL entry on both hash tables."
   (flet ((add-upcase-char (alist)
            "Adds an equivalent upcase character cons pair to every cons pair."
            (remove-duplicates
@@ -166,7 +166,7 @@
     (rec *special-chars-alist* string)))
 
 (defun turn-to-ascii-compatible (string &optional (charset :en))
-  "Removes the accentuation and ponctuation of the given `string'."
+  "Removes the accentuation and ponctuation of the given STRING."
   (let ((*accentuation-alist*
          (multiple-value-bind (it win)
              (gethash charset %langname->accentuation-alist)
