@@ -5,7 +5,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 3)
+(plan 4)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
