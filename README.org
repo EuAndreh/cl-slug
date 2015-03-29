@@ -54,6 +54,13 @@
 ** Supported languages
    English, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian, spanish and romansh strings.
 
+   Right now, adding new languages is a fairly manual process:
+   1. Identify non-ASCII characters in a given language's alphabet
+   2. Stablish equivalence between the found characters and ASCII characters
+   3. Write them down in the code.
+
+   All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
+
 ** Bugs
    If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
 
