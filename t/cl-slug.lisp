@@ -318,7 +318,6 @@
 (deftest invalid-charset-error-test
   (is-error (slufigy "ASCII string" :jp)
             'invalid-charset-error
-            "INVALID-CHARSET-ERROR is thrown with .")
-  )
+            "INVALID-CHARSET-ERROR is thrown with ."))
 
 (run-test-all)
