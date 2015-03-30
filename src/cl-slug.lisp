@@ -166,12 +166,6 @@
                  str)))
     (rec *special-chars-alist* string)))
 
-(define-condition invalid-charset-error (simple-error)
-  ((charset :initarg charset :accessor charset :type keyword :initform nil
-            :documentation "Two-letters keyword charset identifier."))
-  (:report (lambda (condition stream)
-             (format stream "Invalid charset option: ~S." (charset condition)))))
-
 (defun asciify (string &optional (charset :en))
   "Removes the accentuation and ponctuation of the given STRING."
   (let ((*accentuation-alist*
@@ -179,7 +173,7 @@
              (gethash charset %langname->accentuation-alist)
            (if win
                it
-               (error 'invalid-charset-error :charset charset))))
+               (error "Invalid charset option: ~S." charset))))
         (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
     (remove-accentuation (remove-special-chars string))))
 
@@ -190,7 +184,7 @@
              (gethash charset %langname->accentuation-alist)
            (if win
                it
-               (error 'invalid-charset-error :charset charset))))
+               (error "Invalid charset option: ~S." charset))))
         (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
     (remove-accentuation
      (string-downcase
