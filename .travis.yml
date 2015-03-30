@@ -13,7 +13,7 @@ install:
 
 script:
   - cl -l prove -l cl-slug
-       -e '(setf prove:*debug-on-error* t)
+       -e '(setf prove:*debug-on-error* t
                  *debugger-hook* (lambda (c h)
                                    (declare (ignore c h))
                                    (uiop:quit -1)))'
