@@ -12,7 +12,6 @@ install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
   - git clone https://github.com/fukamachi/cl-coveralls
   - git clone https://github.com/EuAndreh/prove
-  - git clone https://github.com/EuAndreh/CLSS
 
 script:
   - cl -l cl-slug -l prove -l cl-coveralls -l clss
