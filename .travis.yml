@@ -10,7 +10,6 @@ env:
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
-#  - git clone https://github.com/fukamachi/cl-coveralls ~/lisp/cl-coveralls
 
 before-_script:
   - git clone https://github.com/fukamachi/cl-coveralls ~/lisp/cl-coveralls
@@ -21,6 +20,6 @@ script:
                  *debugger-hook* (lambda (c h)
                                    (declare (ignore c h))
                                    (uiop:quit -1)))'
-       -e '(or (coveralls:with-coveralls (:exclude (list "t"))
+       -e '(or (coveralls:with-coveralls (:exclude "t")
                  (prove:run :cl-slug-test))
                (uiop:quit -1))'
