@@ -167,7 +167,7 @@
     (rec *special-chars-alist* string)))
 
 (define-condition invalid-charset-error (simple-error)
-  ((charset :initarg charset :reader charset :type keyword
+  ((charset :initarg charset :reader charset :type keyword :initform nil
             :documentation "Two-letters keyword charset identifier."))
   (:report (lambda (error stream)
              (format stream "Invalid charset option: ~S." (charset error)))))
