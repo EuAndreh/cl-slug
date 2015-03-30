@@ -14,7 +14,7 @@ install:
   - git clone https://github.com/EuAndreh/prove
 
 script:
-  - cl -l cl-slug -l prove -l cl-coveralls -l clss
+  - cl -l cl-slug -l prove -l cl-coveralls
        -e '(setf prove:*debug-on-error* t
                  *debugger-hook* (lambda (c h)
                                    (declare (ignore c h))
