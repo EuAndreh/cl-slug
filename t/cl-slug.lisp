@@ -320,7 +320,7 @@
             (or invalid-charset-error simple-error error)
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
   (is-error (asciify "ASCII string" :jp)
-            (or error simple-error)
+            (or invalid-charset-error simple-error error)
             "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
 
 (run-test-all)
