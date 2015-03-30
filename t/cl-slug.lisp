@@ -320,7 +320,7 @@
             'invalid-charset-error
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
   (is-error (asciify "ASCII string" :jp)
-            'simple-error ;;'(or invalid-charset-error simple-error)
+            'simple-program-error ;;'(or invalid-charset-error simple-error)
             "INVALID-CHARSET-ERROR is thrown with ASCIIFY.")
   (is-error (error "oweijf")
             'simple-error))
