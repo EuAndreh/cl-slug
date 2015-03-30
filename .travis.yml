@@ -10,7 +10,7 @@ env:
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
-  - git clone https://github.com/fukamachi/cl-coveralls ~/lisp/cl-coveralls
+  - git clone https://github.com/fukamachi/cl-coveralls #~/lisp/cl-coveralls
 
 #before-_script:
 #  - git clone https://github.com/fukamachi/cl-coveralls ~/lisp/cl-coveralls
