@@ -321,6 +321,8 @@
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
   (is-error (asciify "ASCII string" :jp)
             'invalid-charset-error
-            "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
+            "INVALID-CHARSET-ERROR is thrown with ASCIIFY.")
+  (is-error (error "oweijf")
+            'simple-error))
 
 (run-test-all)
