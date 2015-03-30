@@ -315,4 +315,10 @@
             (#\a . #\LATIN_SMALL_LETTER_A_WITH_ACUTE))
           "*ACCENTUATION-ALIST* special var has the expected :ALL value: the union of all given accentuated chars (french + spanish, in this case, without repeated entries)."))))
 
+(deftest invalid-charset-error-test
+  (is-error (slufigy "ASCII string" :jp)
+            'invalid-charset-error
+            "INVALID-CHARSET-ERROR is thrown with .")
+  )
+
 (run-test-all)
