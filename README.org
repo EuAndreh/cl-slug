@@ -1,5 +1,6 @@
 * cl-slug
   [[https://travis-ci.org/EuAndreh/cl-slug][https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master]]
+  [[https://coveralls.io/r/EuAndreh/cl-slug][https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master]]
 
   Easily create slugs from any string. Supports many languages alphabets.
 
