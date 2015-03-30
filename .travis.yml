@@ -3,17 +3,14 @@ language: common-lisp
 env:
   matrix:
     - LISP=sbcl COVERALLS=true
-#    - LISP=ccl
-#    - LISP=clisp
-#    - LISP=ecl
-#    - LISP=abcl
+    - LISP=ccl
+    - LISP=clisp
+    - LISP=ecl
+    - LISP=abcl
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
-  - git clone https://github.com/fukamachi/cl-coveralls #~/lisp/cl-coveralls
-
-#before-_script:
-#  - git clone https://github.com/fukamachi/cl-coveralls ~/lisp/cl-coveralls
+  - git clone https://github.com/fukamachi/cl-coveralls
 
 script:
   - cl -l prove -l cl-slug -l cl-coveralls
