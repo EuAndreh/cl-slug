@@ -15,7 +15,7 @@ install:
   - git clone https://github.com/EuAndreh/CLSS
 
 script:
-  - cl -l prove -l cl-slug -l cl-coveralls -l clss
+  - cl -l cl-slug -l prove -l cl-coveralls -l clss
        -e '(setf prove:*debug-on-error* t
                  *debugger-hook* (lambda (c h)
                                    (declare (ignore c h))
