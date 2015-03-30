@@ -41,9 +41,9 @@
 #+END_SRC
    If you want to use =slugify= (for some crazy reason) to create slugs from multi-language strings, use the =:all= option.
 
-   If you just want to remove accentuation and ponctuation of a given string, use =turn-to-ascii-compatible=:
+   If you just want to remove accentuation and ponctuation of a given string, use =asciify=:
 #+BEGIN_SRC lisp
-* (turn-to-ascii-compatible "Eu André!" :pt)
+* (asciify "Eu André!" :pt)
 "Eu Andre!"
 #+END_SRC
 ** Dependencies

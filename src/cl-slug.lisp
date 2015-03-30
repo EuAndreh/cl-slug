@@ -3,7 +3,7 @@
   (:use cl)
   (:nicknames slug)
   (:export slugify
-           turn-to-ascii-compatible
+           asciify
            *slug-separator*)
   (:documentation "Main (and only) package. Nickname SLUG also available."))
 (in-package cl-slug)
@@ -171,7 +171,7 @@
   (:report (lambda (error stream)
              (format stream "Invalid charset option: ~S." (charset error)))))
 
-(defun turn-to-ascii-compatible (string &optional (charset :en))
+(defun asciify (string &optional (charset :en))
   "Removes the accentuation and ponctuation of the given STRING."
   (let ((*accentuation-alist*
          (multiple-value-bind (it win)

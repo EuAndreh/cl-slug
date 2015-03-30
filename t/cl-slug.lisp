@@ -46,11 +46,11 @@
       "one2three4five"
       "#'SLUGIFY doesn't mess with numbers in the string."))
 
-(deftest turn-to-ascii-compatible-test
-  (is (turn-to-ascii-compatible "Eu André!")
+(deftest asciify-test
+  (is (asciify "Eu André!")
       "Eu André!"
       "The default (:en) charset works, without removing any accentuation.")
-  (is (turn-to-ascii-compatible "Eu André!" :pt)
+  (is (asciify "Eu André!" :pt)
       "Eu Andre!"
       "The optional (:pt) charset works, removing portuguese accentuation."))
 
@@ -318,6 +318,9 @@
 (deftest invalid-charset-error-test
   (is-error (slufigy "ASCII string" :jp)
             'invalid-charset-error
-            "INVALID-CHARSET-ERROR is thrown with ."))
+            "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
+  (is-error (asciify "ASCII string" :jp)
+            'invalid-charset-error
+            "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
 
 (run-test-all)
