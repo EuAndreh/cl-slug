@@ -3,10 +3,10 @@ language: common-lisp
 env:
   matrix:
     - LISP=sbcl COVERALLS=true
-    - LISP=ccl
-    - LISP=clisp
-    - LISP=ecl
-    - LISP=abcl
+#    - LISP=ccl
+#    - LISP=clisp
+#    - LISP=ecl
+#    - LISP=abcl
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
@@ -21,6 +21,6 @@ script:
                  *debugger-hook* (lambda (c h)
                                    (declare (ignore c h))
                                    (uiop:quit -1)))'
-       -e '(or (coveralls:with-coveralls (:exclude "t")
+       -e '(or (coveralls:with-coveralls (:exclude (list "t"))
                  (prove:run :cl-slug-test))
                (uiop:quit -1))'
