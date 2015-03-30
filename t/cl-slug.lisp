@@ -317,7 +317,7 @@
 
 (deftest invalid-charset-error-test
   (is-error (asciify "ASCII string" :jp)
-            (or simple-error)
+            (or invalid-charset-error simple-error)
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
   (is-error (asciify "ASCII string" :jp)
             (or error simple-error)
