@@ -179,7 +179,7 @@
              (gethash charset %langname->accentuation-alist)
            (if win
                it
-               (make-instance 'invalid-charset-error :charset charset))))
+               (error 'invalid-charset-error :charset charset))))
         (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
     (remove-accentuation (remove-special-chars string))))
 
@@ -190,7 +190,7 @@
              (gethash charset %langname->accentuation-alist)
            (if win
                it
-               (make-instance 'invalid-charset-error :charset charset))))
+               (error 'invalid-charset-error :charset charset))))
         (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
     (remove-accentuation
      (string-downcase
