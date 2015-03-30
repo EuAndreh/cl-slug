@@ -317,10 +317,10 @@
 
 (deftest invalid-charset-error-test
   (is-error (asciify "ASCII string" :jp)
-            'error
+            (or error simple-error)
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
   (is-error (asciify "ASCII string" :jp)
-            'error
+            (or error simple-error)
             "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
 
 (run-test-all)
