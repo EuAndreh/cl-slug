@@ -5,7 +5,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 5)
+(plan 6)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -316,7 +316,7 @@
           "*ACCENTUATION-ALIST* special var has the expected :ALL value: the union of all given accentuated chars (french + spanish, in this case, without repeated entries)."))))
 
 (deftest invalid-charset-error-test
-  (is-error (slufigy "ASCII string" :jp)
+  (is-error (asciify "ASCII string" :jp)
             'invalid-charset-error
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
   (is-error (asciify "ASCII string" :jp)

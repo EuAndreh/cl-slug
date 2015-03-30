@@ -4,7 +4,8 @@
   (:nicknames slug)
   (:export slugify
            asciify
-           *slug-separator*)
+           *slug-separator*
+           invalid-charset-error)
   (:documentation "Main (and only) package. Nickname SLUG also available."))
 (in-package cl-slug)
 
