@@ -5,7 +5,7 @@
 
 (defsystem cl-slug
   :version "0.1"
-  :author "André Miranda"
+  :author "André Miranda <andremiramor@gmail.com>"
   :license "LLGPL"
   :depends-on (cl-ppcre)
   :components ((:module "src"

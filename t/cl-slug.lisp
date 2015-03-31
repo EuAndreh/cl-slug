@@ -319,7 +319,7 @@
   (is-error (asciify "ASCII string" :jp)
             'simple-error
             "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
-  (is-error (asciify "ASCII string" :jp)
+  (is-error (slugify "ASCII string" :jp)
             'simple-error
             "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
 
