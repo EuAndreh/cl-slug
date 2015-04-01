@@ -52,7 +52,7 @@
 ** Installation
    Now available on [[http://quicklisp.org][Quicklisp]]!
 
-** Supported languages
+** <<Supported languages>>
    English, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian, spanish and romansh strings.
 
    Right now, adding new languages is a fairly manual process:
