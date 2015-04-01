@@ -7,9 +7,9 @@
   Inspired by [[http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes][Lisp Web Tales]].
 ** Usage
 #+BEGIN_SRC lisp
-* (progn
-    (ql:quickload :cl-slug)
-    (import 'cl-slug:slugify))
+* (ql:quickload :cl-slug)
+; => (:CL-SLUG)
+* (import '(cl-slug:slugify cl-slug:asciify))
 ; => T
 #+END_SRC
    The main (and only) function is called =slugify=:
