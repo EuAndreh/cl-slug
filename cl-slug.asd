@@ -4,7 +4,7 @@
 (in-package cl-slug-asd)
 
 (defsystem cl-slug
-  :version "0.1"
+  :version "0.2"
   :author "André Miranda <andremiramor@gmail.com>"
   :license "LLGPL"
   :depends-on (cl-ppcre)
