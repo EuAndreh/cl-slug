@@ -2,6 +2,8 @@
 (defpackage cl-slug
   (:use cl)
   (:nicknames slug)
+  (:import-from split-sequence
+                split-sequence)
   (:export slugify
            asciify
            *slug-separator*
@@ -131,7 +133,7 @@
 (defun remove-ponctuation (string)
   "Removes ponctuation and other special characters from STRING according #'ALPHANUMERICP."
   (labels ((substitute-ponctuation-by-separator (string)
-             "If a (alphanumericp char) returns true, such char is replaced with *SLUG-SEPARATOR*."
+             "If a (alphanumericp char) returns false, such char is replaced with *SLUG-SEPARATOR*."
              (map 'string (lambda (char)
                                    (if (alphanumericp char)
                                        char
@@ -166,27 +168,38 @@
                  str)))
     (rec *special-chars-alist* string)))
 
+(defmacro binding-alists ((charset) &body body)
+  "Default binding code to create language context to ASCIIFY, SLUGIFY and CAMELCASEFY functions. Binds *ACCENTUATION-ALIST* and *SPECIAL-CHARS-ALIST* to the alists present in %LANGNAME->ACCENTUATION-ALIST and %LANGNAME->SPECIAL-CHARS-ALIST languages alists."
+  `(let ((*accentuation-alist*
+          (multiple-value-bind (it win)
+              (gethash ,charset %langname->accentuation-alist)
+            (if win
+                it
+                (error "Invalid charset option: ~S." ,charset))))
+         (*special-chars-alist*
+          (multiple-value-bind (it win)
+              (gethash ,charset %langname->special-chars-alist)
+            (if win
+                it
+                (error "Invalid charset option: ~S." ,charset)))))
+     ,@body))
+
 (defun asciify (string &optional (charset :en))
   "Removes the accentuation and ponctuation of the given STRING."
-  (let ((*accentuation-alist*
-         (multiple-value-bind (it win)
-             (gethash charset %langname->accentuation-alist)
-           (if win
-               it
-               (error "Invalid charset option: ~S." charset))))
-        (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
+  (binding-alists (charset)
     (remove-accentuation (remove-special-chars string))))
 
 (defun slugify (string &optional (charset :en))
   "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
-  (let ((*accentuation-alist*
-         (multiple-value-bind (it win)
-             (gethash charset %langname->accentuation-alist)
-           (if win
-               it
-               (error "Invalid charset option: ~S." charset))))
-        (*special-chars-alist* (gethash charset %langname->special-chars-alist)))
+  (binding-alists (charset)
     (remove-accentuation
      (string-downcase
       (remove-special-chars
        (remove-ponctuation string))))))
+
+(defun CamelCaseFy (string &optional (charset :en))
+  "Makes STRING CamelCase. To remove special characters and accentuation, use ASCIIFY."
+  ( (remove-ponctuation string)))
+
+(ql:quickload 'split-sequence)
+(split-sequence:sp)

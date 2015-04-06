@@ -323,4 +323,8 @@
             'simple-error
             "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
 
+(deftest binding-alists-expansion-test)
+(deftest binding-alists-error-test)
+(deftest binding-alists-semantics-test)
+
 (run-test-all)
