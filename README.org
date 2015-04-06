@@ -44,8 +44,15 @@
    If you just want to remove accentuation and ponctuation of a given string, use =asciify=:
 #+BEGIN_SRC lisp
 * (asciify "Eu André!" :pt)
-"Eu Andre!"
+; => "Eu Andre!"
 #+END_SRC
+
+   Or if you want a CamelCase string, use =CamelCaseFy=:
+#+BEGIN_SRC lisp
+* (CamelCaseFy "My new camel case string")
+; => "MyNewCamelCaseString"
+#+END_SRC
+   If you want an ASCII CamelCase string, just compose =asciify= with =CamelCaseFy= =].
 ** Dependencies
    This library depends on the [[http://weitz.de/cl-ppcre/][CL-PPCRE]] and on [[http://www.cliki.net/split-sequence][SPLIT-SEQUENCE]]. The test package uses the [[http://github.com/fukamachi/prove][prove]] test library.
 

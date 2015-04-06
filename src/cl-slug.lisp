@@ -6,6 +6,7 @@
                 split-sequence)
   (:export slugify
            asciify
+           CamelCaseFy
            *slug-separator*
            invalid-charset-error)
   (:documentation "Main (and only) package. Nickname SLUG also available."))

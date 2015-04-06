@@ -5,7 +5,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 6)
+(plan 10)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -56,12 +56,13 @@
 
 
 (import '(cl-slug::add-language
-            cl-slug::*available-languages*
-            cl-slug::*special-chars-alist*
-            cl-slug::*accentuation-alist*
-            cl-slug::*slug-separator*
-            cl-slug::%langname->accentuation-alist
-            cl-slug::%langname->special-chars-alist))
+          cl-slug::*available-languages*
+          cl-slug::*special-chars-alist*
+          cl-slug::*accentuation-alist*
+          cl-slug::*slug-separator*
+          cl-slug::%langname->accentuation-alist
+          cl-slug::%langname->special-chars-alist
+          cl-slug::binding-alists))
 
 (deftest add-language-test
   (let (*available-languages*
@@ -323,8 +324,45 @@
             'simple-error
             "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
 
-(deftest binding-alists-expansion-test)
-(deftest binding-alists-error-test)
-(deftest binding-alists-semantics-test)
+(deftest binding-alists-expansion-test
+  (is-expand (binding-alists (:pt)
+               (do-something-with-the-enviroment))
+             (LET ((*ACCENTUATION-ALIST*
+                    (MULTIPLE-VALUE-BIND (CL-SLUG::IT CL-SLUG::WIN)
+                        (GETHASH :PT %LANGNAME->ACCENTUATION-ALIST)
+                      (IF CL-SLUG::WIN
+                          CL-SLUG::IT
+                          (ERROR "Invalid charset option: ~S." :PT))))
+                   (*SPECIAL-CHARS-ALIST*
+                    (MULTIPLE-VALUE-BIND (CL-SLUG::IT CL-SLUG::WIN)
+                        (GETHASH :PT %LANGNAME->SPECIAL-CHARS-ALIST)
+                      (IF CL-SLUG::WIN
+                          CL-SLUG::IT
+                          (ERROR "Invalid charset option: ~S." :PT)))))
+               (DO-SOMETHING-WITH-THE-ENVIROMENT))
+             "BINDING-ALISTS expands correctly."))
+
+(deftest binding-alists-error-test
+  (is-error (binding-alists (:xxx)
+              (slugify "string"))
+            'simple-error))
+
+(deftest binding-alists-semantics-test
+  (is (binding-alists (:fi)
+        *accentuation-alist*)
+      '((#\a . #\ä) (#\o . #\ö) (#\u . #\ü))
+      "BINDING-ALISTS binds *ACCENTUATION-ALIST* correctly.")
+  (is (binding-alists (:de)
+        *special-chars-alist*)
+      '(("ss" . "ß"))
+      "BINDING-ALISTS binds *SPECIAL-CHARS-ALIST* correctly."))
+
+(deftest CamelCaseFy
+  (is (CamelCaseFy "Eu André!")
+      "EuAndré"
+      "CAMELCASEFY works with accentuated strings, removing ponctuation and joining words.")
+  (is (asciify (CamelCaseFy "Eu André!") :pt)
+      "EuAndre"
+      "CAMELCASEFY works combined with ASCIIFY, making a CamelCase string with ASCII characters only."))
 
 (run-test-all)
