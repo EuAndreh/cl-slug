@@ -197,9 +197,6 @@
       (remove-special-chars
        (remove-ponctuation string))))))
 
-(defun CamelCaseFy (string &optional (charset :en))
+(defun CamelCaseFy (string)
   "Makes STRING CamelCase. To remove special characters and accentuation, use ASCIIFY."
-  ( (remove-ponctuation string)))
-
-(ql:quickload 'split-sequence)
-(split-sequence:sp)
+  (remove *slug-separator* (string-capitalize (remove-ponctuation string))))
