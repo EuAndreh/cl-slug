@@ -4,7 +4,7 @@
 (in-package cl-slug-test-asd)
 
 (defsystem cl-slug-test
-  :author "André Miranda"
+  :author "André Miranda <andremiramor@gmail.com>"
   :license "LLGPL"
   :depends-on (cl-slug
                prove)
