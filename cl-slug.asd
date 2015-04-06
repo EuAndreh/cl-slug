@@ -7,7 +7,8 @@
   :version "0.2"
   :author "André Miranda <andremiramor@gmail.com>"
   :license "LLGPL"
-  :depends-on (cl-ppcre)
+  :depends-on (cl-ppcre
+               split-sequence)
   :components ((:module "src"
                 :components
                 ((:file "cl-slug"))))
