@@ -8,4 +8,7 @@
 .#*
 *.pdf
 old-benchmark.lisp
-.coveralls.yml
+CamelCaseFy
+asciify
+slugify
+buildapp.sh
