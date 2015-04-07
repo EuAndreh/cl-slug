@@ -9,7 +9,7 @@
 #+BEGIN_SRC lisp
 * (ql:quickload :cl-slug)
 ; => (:CL-SLUG)
-* (import '(cl-slug:slugify cl-slug:asciify))
+* (import '(cl-slug:slugify cl-slug:asciify cl-slug:CamelCaseFy))
 ; => T
 #+END_SRC
    The main (and only) function is called =slugify=:
