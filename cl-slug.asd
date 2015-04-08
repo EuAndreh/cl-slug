@@ -1,11 +1,11 @@
-(in-package cl-user)
-(defpackage cl-slug-asd
-  (:use cl asdf))
-(in-package cl-slug-asd)
-
 (defsystem cl-slug
   :version "0.3"
-  :author "André Miranda <andremiramor@gmail.com>"
+  :author "André Miranda"
+  :maintainer "André Miranda"
+  :mailto "<andremiramor@gmail.com>"
+  :homepage "https://github.com/EuAndreh/cl-slug"
+  :bug-tracker "https://github.com/EuAndreh/cl-slug/issues"
+  :source-control (:git "git@github.com:EuAndreh/cl-slug.git")
   :license "LLGPL"
   :depends-on (cl-ppcre
                split-sequence)
