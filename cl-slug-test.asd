@@ -4,7 +4,7 @@
 (in-package cl-slug-test-asd)
 
 (defsystem cl-slug-test
-  :author "André Miranda <andremiramor@gmail.com>"
+  :author "André Miranda"
   :license "LLGPL"
   :mailto "<andremiramor@gmail.com>"
   :homepage "https://github.com/EuAndreh/fad-iter"
