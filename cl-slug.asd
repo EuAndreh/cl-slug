@@ -15,5 +15,5 @@
   :description "Small library to make slugs, mainly for URIs, from english and beyond."
   :long-description
   #.(uiop:read-file-string
-     (uiop:subpathname *load-pathname* "README.org"))
+     (uiop:subpathname *load-pathname* "README.md"))
   :in-order-to ((test-op (test-op cl-slug-test))))
