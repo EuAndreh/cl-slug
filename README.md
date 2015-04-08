@@ -104,7 +104,7 @@ This library is tested under SBCL, CCL and CLISP Common Lisp implementations.
 To run all the defined tests, use:
 ```lisp
 * (asdf:test-system :cl-slug)
-; prints lots of stuff...
+; prints lots of (colorful) stuff...
 ; => T
 ```
 
