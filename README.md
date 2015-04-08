@@ -1,11 +1,12 @@
 cl-slug
 =======
 
-[<https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master>][] [<https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master>][]
+[![Build Status](https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master)](https://travis-ci.org/EuAndreh/cl-slug)
+[![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-slug?branch=master)
 
-Easily create slugs from any string. Supports many languages alphabets. See [Supported languages][] to check for supported languages or to help to add one.
+Easily create slugs from any string. Supports many languages alphabets. See [Supported languages](#Supported languages) to check for supported languages or to help to add one.
 
-Inspired by [Lisp Web Tales][].
+Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes).
 
 Usage
 -----
@@ -26,7 +27,7 @@ The main (and only) function is called `slugify`:
 ; => "andre-miranda"
 ```
 
-`slugify` removes any accentuated character, replacing it with an unaccentuated equivalent, and any ponctuation (a ponctuation is a char that returns `NIL` for `alphanumericp`) and puts a dash (`-`) on it's place. You can change that by binding (of `setf=ing) =*slug-separator*`:
+`slugify` removes any accentuated character, replacing it with an unaccentuated equivalent, and any ponctuation (a ponctuation is a char that returns `NIL` for `alphanumericp`) and puts a dash (`-`) on it's place. You can change that by binding (of `setf`ing) `*slug-separator*`:
 
 ``` commonlisp
 * (let ((*slug-separator* #\_))
@@ -34,7 +35,7 @@ The main (and only) function is called `slugify`:
 ; => "testing_the_slug_separator_var"
 ```
 
-`slugify` also ignore numbers:
+`slugify` also ignores numbers:
 
 ``` commonlisp
 * (slugify "one2three4five")
@@ -71,26 +72,52 @@ If you want an ASCII CamelCase string, just compose `asciify` with `CamelCaseFy`
 Dependencies
 ------------
 
-This library depends on the [CL-PPCRE][] and on [SPLIT-SEQUENCE][]. The test package uses the [prove][] test library.
+This library depends on the [CL-PPCRE](http://weitz.de/cl-ppcre) and on [SPLIT-SEQUENCE](http://www.cliki.net/split-sequence). The test package uses the [prove](https://github.com/fukamachi/prove) test library.
 
 Installation
 ------------
 
-Now available on [Quicklisp][]!
+Now available on [Quicklisp](http://quicklisp.org)! Just one `(ql:quickload :cl-slug)` away!
 
 Supported languages
 -------------------
 
-English, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian, spanish and romansh strings.
+The languages that are supported right now are english, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian, spanish and romansh strings.
 
-Right now, adding new languages is a fairly manual process:
-1.  Identify non
+   At the present moment, adding new languages is a fairly manual process:
+   1. Identify non-ASCII characters in a given language's alphabet
+   2. Stablish equivalence between the found characters and ASCII characters
+   3. Write them down in the code.
 
-  [<https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master>]: https://travis-ci.org/EuAndreh/cl-slug
-  [<https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master>]: https://coveralls.io/r/EuAndreh/cl-slug
-  [Supported languages]: #supported-languages
-  [Lisp Web Tales]: http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes
-  [CL-PPCRE]: http://weitz.de/cl-ppcre/
-  [SPLIT-SEQUENCE]: http://www.cliki.net/split-sequence
-  [prove]: http://github.com/fukamachi/prove
-  [Quicklisp]: http://quicklisp.org
+   All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
+
+Bugs
+----
+
+If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
+
+Tests
+-----
+
+This library is tested under SBCL, CCL and CLISP Common Lisp implementations.
+
+To run all the defined tests, use:
+```lisp
+* (asdf:test-system :cl-slug)
+; prints lots of stuff...
+; => T
+```
+
+Tests are also ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-slug) using [cl-travis](https://github.com/luismbo/cl-travis) and [CIM](https://github.com/KeenS/CIM). Check it out!
+
+Author
+------
+
+André Miranda
+
+License
+-------
+
+Licensed under the LLGPL License.
+
+
