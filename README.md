@@ -11,7 +11,7 @@ Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-
 Usage
 -----
 
-``` commonlisp
+```lisp
 * (ql:quickload :cl-slug)
 ; => (:CL-SLUG)
 * (import '(cl-slug:slugify cl-slug:asciify cl-slug:CamelCaseFy))
@@ -20,7 +20,7 @@ Usage
 
 The main (and only) function is called `slugify`:
 
-``` commonlisp
+```lisp
 * (slugify "My new cool article, for the blog (V. 2).")
 ; => "my-new-cool-article-for-the-blog-v-2"
 * (slugify "André Miranda" :pt)
@@ -29,7 +29,7 @@ The main (and only) function is called `slugify`:
 
 `slugify` removes any accentuated character, replacing it with an unaccentuated equivalent, and any ponctuation (a ponctuation is a char that returns `NIL` for `alphanumericp`) and puts a dash (`-`) on it's place. You can change that by binding (of `setf`ing) `*slug-separator*`:
 
-``` commonlisp
+```lisp
 * (let ((*slug-separator* #\_))
     (slugify "Testing the *slug-separator* var..."))
 ; => "testing_the_slug_separator_var"
@@ -37,14 +37,14 @@ The main (and only) function is called `slugify`:
 
 `slugify` also ignores numbers:
 
-``` commonlisp
+```lisp
 * (slugify "one2three4five")
 ; => "one2three4five"
 ```
 
 `slugify` by default looks only for ponctuation characters. If you want to use it with any of the supported languages, specify it on the `charset` optional parameter:
 
-``` commonlisp
+```lisp
 * (slugify "My string with esperanto language characters (ĉ, and ŭ)" :eo)
 ; => "my-string-with-esperanto-language-characters-c-and-u"
 * (slugify "My string with swedish language characters (ä, ö, ü and å)" :sv)
@@ -55,14 +55,14 @@ If you want to use `slugify` (for some crazy reason) to create slugs from multi-
 
 If you just want to remove accentuation and ponctuation of a given string, use `asciify`:
 
-``` commonlisp
+```lisp
 * (asciify "Eu André!" :pt)
 ; => "Eu Andre!"
 ```
 
 Or if you want a CamelCase string, use `CamelCaseFy`:
 
-``` commonlisp
+```lisp
 * (CamelCaseFy "My new camel case string")
 ; => "MyNewCamelCaseString"
 ```
