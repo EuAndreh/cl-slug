@@ -1,8 +1,3 @@
-(in-package cl-user)
-(defpackage cl-slug-test-asd
-  (:use cl asdf))
-(in-package cl-slug-test-asd)
-
 (defsystem cl-slug-test
   :author "André Miranda"
   :license "LLGPL"
