@@ -94,3 +94,7 @@ Right now, adding new languages is a fairly manual process:
   [SPLIT-SEQUENCE]: http://www.cliki.net/split-sequence
   [prove]: http://github.com/fukamachi/prove
   [Quicklisp]: http://quicklisp.org
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/EuAndreh/cl-slug/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
