@@ -120,4 +120,4 @@ License
 
 Licensed under the LLGPL License.
 
-
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/EuAndreh/cl-slug/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
