@@ -2,15 +2,12 @@
 (defpackage cl-slug
   (:use cl)
   (:nicknames slug)
-  (:import-from split-sequence
-                split-sequence)
   (:export slugify
            asciify
            CamelCaseFy
            snakefy
-           *slug-separator*
-           invalid-charset-error)
-  (:documentation "Main (and only) package. Nickname SLUG also available."))
+           *slug-separator*)
+  (:documentation "Main (and only) package. Package nickname SLUG also available."))
 (in-package cl-slug)
 
 (defparameter *available-languages* ()

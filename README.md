@@ -72,7 +72,7 @@ If you want an ASCII CamelCase string, just compose `asciify` with `CamelCaseFy`
 Dependencies
 ------------
 
-This library depends on the [CL-PPCRE](http://weitz.de/cl-ppcre) and on [SPLIT-SEQUENCE](http://www.cliki.net/split-sequence). The test package uses the [prove](https://github.com/fukamachi/prove) test library.
+This library depends on [CL-PPCRE](http://weitz.de/cl-ppcre). The test package uses the [prove](https://github.com/fukamachi/prove) test library.
 
 Installation
 ------------

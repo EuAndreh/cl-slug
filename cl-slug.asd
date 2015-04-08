@@ -7,8 +7,7 @@
   :bug-tracker "https://github.com/EuAndreh/cl-slug/issues"
   :source-control (:git "git@github.com:EuAndreh/cl-slug.git")
   :license "LLGPL"
-  :depends-on (cl-ppcre
-               split-sequence)
+  :depends-on (cl-ppcre)
   :components ((:module "src"
                 :components
                 ((:file "cl-slug"))))
