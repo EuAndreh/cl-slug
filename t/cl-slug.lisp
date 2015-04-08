@@ -5,7 +5,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 10)
+(plan 11)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -357,12 +357,20 @@
       '(("ss" . "ß"))
       "BINDING-ALISTS binds *SPECIAL-CHARS-ALIST* correctly."))
 
-(deftest CamelCaseFy
-  (is (CamelCaseFy "Eu André!")
-      "EuAndré"
-      "CAMELCASEFY works with accentuated strings, removing ponctuation and joining words.")
-  (is (asciify (CamelCaseFy "Eu André!") :pt)
-      "EuAndre"
-      "CAMELCASEFY works combined with ASCIIFY, making a CamelCase string with ASCII characters only."))
+(deftest CamelCaseFyTest
+  (is (CamelCaseFy "Eu Andrë! with german special char: ß")
+      "EuAndrëWithGermanSpecialCharß"
+      "CamelCaseFy works with accentuated strings, removing ponctuation and joining words, keeping the accentuation and special characters intact.")
+  (is (CamelCaseFy "Eu Andrë! with german special char: ß" :de)
+      "EuAndreWithGermanSpecialCharss"
+      "CamelCaseFy works with optional CHARSET, making a CamelCaseString with ASCII characters only."))
+
+(deftest snakefy_test
+  (is (snakefy "Eu Andrë! with german special char: ß")
+      "eu_andrë_with_german_special_char_ß"
+      "snakefy works with accentuated strings, removing ponctuation and joining words, keeping the accentuation and special characters intact.")
+  (is (snakefy "Eu Andrë! with german special char: ß" :de)
+      "eu_andre_with_german_special_char_ss"
+      "snakefy works with optional CHARSET, making a snake_string with ASCII characters only."))
 
 (run-test-all)

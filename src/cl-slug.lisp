@@ -7,6 +7,7 @@
   (:export slugify
            asciify
            CamelCaseFy
+           snakefy
            *slug-separator*
            invalid-charset-error)
   (:documentation "Main (and only) package. Nickname SLUG also available."))
@@ -191,13 +192,20 @@
     (remove-accentuation (remove-special-chars string))))
 
 (defun slugify (string &optional (charset :en))
-  "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
+  "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever, according to the chosen CHARSET."
   (binding-alists (charset)
     (remove-accentuation
      (string-downcase
       (remove-special-chars
        (remove-ponctuation string))))))
 
-(defun CamelCaseFy (string)
-  "Makes STRING CamelCase. To remove special characters and accentuation, use ASCIIFY."
-  (remove *slug-separator* (string-capitalize (remove-ponctuation string))))
+(defun CamelCaseFy (string &optional (charset :en))
+  "Makes STRING CamelCase, also removing ponctuation and accentuation, according to the chosen CHARSET."
+  (remove *slug-separator*
+          (asciify (string-capitalize (remove-ponctuation string))
+                   charset)))
+
+(defun snakefy (string &optional (charset :en))
+  "Makes STRING snake_case, also removing ponctuation and accentuation, according to the chosen CHARSET."
+  (let ((*slug-separator* #\_))
+    (slugify string charset)))
