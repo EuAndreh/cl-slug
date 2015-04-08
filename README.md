@@ -4,7 +4,7 @@ cl-slug
 [![Build Status](https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master)](https://travis-ci.org/EuAndreh/cl-slug)
 [![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-slug?branch=master)
 
-Easily create slugs from any string. Supports many languages alphabets. See [Supported languages](#Supported languages) to check for supported languages or to help to add one.
+Easily create slugs from any string. Supports many languages alphabets. See [Supported languages](#supported-languages) to check for supported languages or to help to add one.
 
 Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes).
 
