@@ -146,18 +146,21 @@
   (remove-accentuation (remove-special-chars string)))
 
 (defun slugify (string)
-  "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever, according to the chosen CHARSET."
+  "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever."
   (remove-accentuation
    (string-downcase
     (remove-special-chars
      (remove-ponctuation string)))))
 
 (defun CamelCaseFy (string)
-  "Makes STRING CamelCase, also removing ponctuation and accentuation, according to the chosen CHARSET."
+  "Makes STRING CamelCase, also removing ponctuation and accentuation."
   (remove *slug-separator*
           (asciify (string-capitalize (remove-ponctuation string)))))
 
+(defun smallCamelCaseFy (string)
+  "Makes STRING smallCamelCase, also removing ponctuation and accentuation.")
+
 (defun snakefy (string)
-  "Makes STRING snake_case, also removing ponctuation and accentuation, according to the chosen CHARSET."
+  "Makes STRING snake_case, also removing ponctuation and accentuation."
   (let ((*slug-separator* #\_))
     (slugify string)))
