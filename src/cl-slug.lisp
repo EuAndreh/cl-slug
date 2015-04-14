@@ -52,7 +52,6 @@
                    `(setf (gethash ,(cdr pair) %special-chars) ,(car pair)))
                  (add-upcase-string special-chars-alist))
         ,key-code)))
-;; merge hash???
 
 (add-language "Dansk (Danish)" :da
               ((#\e . #\è) (#\o . #\ò) (#\a . #\â)
