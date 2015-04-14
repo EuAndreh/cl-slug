@@ -1,4 +1,3 @@
-(in-package :cl-user)
 (defpackage cl-slug
   (:use cl)
   (:nicknames slug)
@@ -10,27 +9,26 @@
   (:documentation "Main (and only) package. Package nickname SLUG also available."))
 (in-package cl-slug)
 
+(defmacro aif2 (test then &optional else)
+  `(multiple-value-bind (it win) ,test
+     (if win
+         ,then
+          ,else)))
+
 (defparameter *available-languages* ()
   "Alist with (KEY . LANGUAGE-NAMESTRING).")
 
-(defvar *special-chars-alist* ()
-  "Special var to hold alist with special chars that behave differently from others.")
-
-(defvar *accentuation-alist* ()
-  "Special var to hold alist with accentuated chars and their respective accentless char.")
-
 (defparameter *slug-separator* #\- "Default separator of slug strings.")
 
-(defparameter %langname->accentuation-alist (make-hash-table)
-  "Hash table that holds the alist of accentuation from each language indexed by key.")
+(defparameter %accentuations (make-hash-table)
+  "Hash table of all {accentuation -> ascii-equivalent} characters.")
 
-(defparameter %langname->special-chars-alist (make-hash-table)
-  "Hash table that holds the alist of special characters from each language indexed by key.")
+(defparameter %special-chars (make-hash-table)
+  "Hash table of all {special-char -> ascii-equivalent} strings.")
 
 (defmacro add-language (name key-code accentuation-alist
                         &optional special-chars-alist)
-  "Adds a language to both hash tables (%LANGNAME->ACCENTUATION-ALIST and %LANGNAME->SPECIAL-CHARS-ALIST) and the language NAME + KEY-CODE to *AVAILABLE-LANGUAGES*. Also adds all new special and accentuated chars to the :ALL entry on both hash tables."
-  (flet ((add-upcase-char (alist)
+  (flet ((add-upcase-chars (alist)
            "Adds an equivalent upcase character cons pair to every cons pair."
            (remove-duplicates
             (append alist (mapcar (lambda (pair)
@@ -47,19 +45,14 @@
              :test #'string= :key #'cdr :from-end t)))
     `(progn
        (pushnew (cons ,key-code ,name) *available-languages* :key #'car)
-       (setf (gethash ,key-code %langname->accentuation-alist)
-             ',accentuation-alist
-             (gethash ,key-code %langname->special-chars-alist)
-             ',special-chars-alist)
        ,@(mapcar (lambda (pair)
-                   `(pushnew ',pair (gethash :all %langname->accentuation-alist)
-                             :key #'cdr))
-                 (add-upcase-char accentuation-alist))
+                   `(setf (gethash ,(cdr pair) %accentuations) ,(car pair)))
+                 (add-upcase-chars accentuation-alist))
        ,@(mapcar (lambda (pair)
-                   `(pushnew ',pair (gethash :all %langname->special-chars-alist)
-                             :key #'cdr))
+                   `(setf (gethash ,(cdr pair) %special-chars) ,(car pair)))
                  (add-upcase-string special-chars-alist))
-       ,key-code)))
+        ,key-code)))
+;; merge hash???
 
 (add-language "Dansk (Danish)" :da
               ((#\e . #\è) (#\o . #\ò) (#\a . #\â)
@@ -119,14 +112,12 @@
               ((#\a . #\ä) (#\o . #\ö) (#\u . #\ü))
               (("aa" . "å")))
 
-
 (defun remove-accentuation (string)
-  "Removes accentuation (according to *ACCENTUATION-ALIST*) from STRING."
+  "Removes accentuation (according to %ACCENTUATIONS) from STRING."
   (map 'string (lambda (char)
-                 (let ((pair (rassoc char *accentuation-alist*)))
-                   (if pair
-                       (car pair)
-                       char)))
+                 (aif2 (gethash char %accentuations)
+                       it
+                       char))
        string))
 
 (defun remove-ponctuation (string)
@@ -156,53 +147,29 @@
                   (substitute-ponctuation-by-separator string)))))
 
 (defun remove-special-chars (string)
-  "Removes all special characters stored in *SPECIAL-CHARS-ALIST* using #'PPCRE:REGEX-REPLACE-ALL."
-  (labels ((rec (chars-list str)
-             (if chars-list
-                 (let ((char-pair (car chars-list)))
-                   (rec (cdr chars-list)
-                        (ppcre:regex-replace-all (cdr char-pair)
-                                                 str
-                                                 (car char-pair))))
-                 str)))
-    (rec *special-chars-alist* string)))
+  "Removes all special characters stored in %SPECIAL-CHARS using #'PPCRE:REPLACE-REGEX-ALL."
+  (maphash (lambda (k v)
+             (setf string (ppcre:regex-replace-all k string v)))
+           %special-chars)
+  string)
 
-(defmacro binding-alists ((charset) &body body)
-  "Default binding code to create language context to ASCIIFY, SLUGIFY and CAMELCASEFY functions. Binds *ACCENTUATION-ALIST* and *SPECIAL-CHARS-ALIST* to the alists present in %LANGNAME->ACCENTUATION-ALIST and %LANGNAME->SPECIAL-CHARS-ALIST languages alists."
-  `(let ((*accentuation-alist*
-          (multiple-value-bind (it win)
-              (gethash ,charset %langname->accentuation-alist)
-            (if win
-                it
-                (error "Invalid charset option: ~S." ,charset))))
-         (*special-chars-alist*
-          (multiple-value-bind (it win)
-              (gethash ,charset %langname->special-chars-alist)
-            (if win
-                it
-                (error "Invalid charset option: ~S." ,charset)))))
-     ,@body))
-
-(defun asciify (string &optional (charset :en))
+(defun asciify (string)
   "Removes the accentuation and ponctuation of the given STRING."
-  (binding-alists (charset)
-    (remove-accentuation (remove-special-chars string))))
+  (remove-accentuation (remove-special-chars string)))
 
-(defun slugify (string &optional (charset :en))
+(defun slugify (string)
   "Makes STRING a slug: a downcase string, with no special characters, ponctuation or accentuated letters whatsoever, according to the chosen CHARSET."
-  (binding-alists (charset)
-    (remove-accentuation
-     (string-downcase
-      (remove-special-chars
-       (remove-ponctuation string))))))
+  (remove-accentuation
+   (string-downcase
+    (remove-special-chars
+     (remove-ponctuation string)))))
 
-(defun CamelCaseFy (string &optional (charset :en))
+(defun CamelCaseFy (string)
   "Makes STRING CamelCase, also removing ponctuation and accentuation, according to the chosen CHARSET."
   (remove *slug-separator*
-          (asciify (string-capitalize (remove-ponctuation string))
-                   charset)))
+          (asciify (string-capitalize (remove-ponctuation string)))))
 
-(defun snakefy (string &optional (charset :en))
+(defun snakefy (string)
   "Makes STRING snake_case, also removing ponctuation and accentuation, according to the chosen CHARSET."
   (let ((*slug-separator* #\_))
-    (slugify string charset)))
+    (slugify string)))

@@ -5,7 +5,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 11)
+(plan 6)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -30,10 +30,10 @@
   (is (slugify "My new cool article, for the blog (V. 2).")
       "my-new-cool-article-for-the-blog-v-2"
       "Works with generic article title.")
-  (is (slugify "This, That & the Other! Various Outré Considerations" :fr)
+  (is (slugify "This, That & the Other! Various Outré Considerations")
       "this-that-the-other-various-outre-considerations"
       "Wikipedia (http://en.wikipedia.org/wiki/Semantic_URL#Slug) example works.")
-  (is (slugify "String with chars from many languages: ø, å, ä, ß, ñ, ĉ, ŝ, ê, ç, ó, õ, æ, ï, ü and ö" :all)
+  (is (slugify "String with chars from many languages: ø, å, ä, ß, ñ, ĉ, ŝ, ê, ç, ó, õ, æ, ï, ü and ö")
       "string-with-chars-from-many-languages-o-aa-a-ss-n-c-s-e-c-o-o-ae-i-u-and-o"
       "Works with the :ALL option.")
   (let ((slugged-string "my-string"))
@@ -48,23 +48,17 @@
 
 (deftest asciify-test
   (is (asciify "Eu André!")
-      "Eu André!"
-      "The default (:en) charset works, without removing any accentuation.")
-  (is (asciify "Eu André!" :pt)
       "Eu Andre!"
       "The optional (:pt) charset works, removing portuguese accentuation."))
 
 
-(import '(cl-slug::add-language
-          cl-slug::*available-languages*
-          cl-slug::*special-chars-alist*
-          cl-slug::*accentuation-alist*
-          cl-slug::*slug-separator*
-          cl-slug::%langname->accentuation-alist
-          cl-slug::%langname->special-chars-alist
-          cl-slug::binding-alists))
+#+nil(import '(slug::add-language
+          slug::*available-languages*
+          slug::*slug-separator*
+          slug::%accentuations
+          slug::%special-chars))
 
-(deftest add-language-test
+#+nil(deftest add-language-test
   (let (*available-languages*
         *special-chars-alist*
         *accentuation-alist*
@@ -316,60 +310,13 @@
             (#\a . #\LATIN_SMALL_LETTER_A_WITH_ACUTE))
           "*ACCENTUATION-ALIST* special var has the expected :ALL value: the union of all given accentuated chars (french + spanish, in this case, without repeated entries)."))))
 
-(deftest invalid-charset-error-test
-  (is-error (asciify "ASCII string" :jp)
-            'simple-error
-            "INVALID-CHARSET-ERROR is thrown with SLUGIFY.")
-  (is-error (slugify "ASCII string" :jp)
-            'simple-error
-            "INVALID-CHARSET-ERROR is thrown with ASCIIFY."))
-
-(deftest binding-alists-expansion-test
-  (is-expand (binding-alists (:pt)
-               (do-something-with-the-enviroment))
-             (LET ((*ACCENTUATION-ALIST*
-                    (MULTIPLE-VALUE-BIND (CL-SLUG::IT CL-SLUG::WIN)
-                        (GETHASH :PT %LANGNAME->ACCENTUATION-ALIST)
-                      (IF CL-SLUG::WIN
-                          CL-SLUG::IT
-                          (ERROR "Invalid charset option: ~S." :PT))))
-                   (*SPECIAL-CHARS-ALIST*
-                    (MULTIPLE-VALUE-BIND (CL-SLUG::IT CL-SLUG::WIN)
-                        (GETHASH :PT %LANGNAME->SPECIAL-CHARS-ALIST)
-                      (IF CL-SLUG::WIN
-                          CL-SLUG::IT
-                          (ERROR "Invalid charset option: ~S." :PT)))))
-               (DO-SOMETHING-WITH-THE-ENVIROMENT))
-             "BINDING-ALISTS expands correctly."))
-
-(deftest binding-alists-error-test
-  (is-error (binding-alists (:xxx)
-              (slugify "string"))
-            'simple-error))
-
-(deftest binding-alists-semantics-test
-  (is (binding-alists (:fi)
-        *accentuation-alist*)
-      '((#\a . #\ä) (#\o . #\ö) (#\u . #\ü))
-      "BINDING-ALISTS binds *ACCENTUATION-ALIST* correctly.")
-  (is (binding-alists (:de)
-        *special-chars-alist*)
-      '(("ss" . "ß"))
-      "BINDING-ALISTS binds *SPECIAL-CHARS-ALIST* correctly."))
-
 (deftest CamelCaseFyTest
   (is (CamelCaseFy "Eu Andrë! with german special char: ß")
-      "EuAndrëWithGermanSpecialCharß"
-      "CamelCaseFy works with accentuated strings, removing ponctuation and joining words, keeping the accentuation and special characters intact.")
-  (is (CamelCaseFy "Eu Andrë! with german special char: ß" :de)
       "EuAndreWithGermanSpecialCharss"
       "CamelCaseFy works with optional CHARSET, making a CamelCaseString with ASCII characters only."))
 
 (deftest snakefy_test
   (is (snakefy "Eu Andrë! with german special char: ß")
-      "eu_andrë_with_german_special_char_ß"
-      "snakefy works with accentuated strings, removing ponctuation and joining words, keeping the accentuation and special characters intact.")
-  (is (snakefy "Eu Andrë! with german special char: ß" :de)
       "eu_andre_with_german_special_char_ss"
       "snakefy works with optional CHARSET, making a snake_string with ASCII characters only."))
 
