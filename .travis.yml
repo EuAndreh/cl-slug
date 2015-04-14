@@ -10,8 +10,7 @@ env:
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
-#  - git clone https://github.com/fukamachi/cl-coveralls
-#  - git clone https://github.com/EuAndreh/prove
+  - git clone https://github.com/EuAndreh/prove
 
 script:
   - cl -l cl-slug -l prove -l cl-coveralls
@@ -22,4 +21,4 @@ script:
                                     (uiop:quit -1)))
             (or (coveralls:with-coveralls (:exclude "t")
                   (prove:run :cl-slug-test))
-             (uiop:quit -1)))'
+                (uiop:quit -1)))'
