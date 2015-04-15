@@ -12,7 +12,9 @@ Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-
 ```lisp
 * (ql:quickload :cl-slug)
 ; => (:CL-SLUG)
-* (import '(slug:slugify slug:asciify slug:CamelCaseFy slug:snakefy))
+* (import '(slug:slugify slug:asciify 
+            slug:CamelCaseFy slug:smallCamelCaseFy 
+            slug:snakefy))
 ; => T
 ```
 
@@ -53,11 +55,14 @@ If you just want to remove accentuation and ponctuation of a given string, use `
 ; => "Eu Andre!"
 ```
 
-Or if you want a CamelCase string, use `CamelCaseFy`:
+Or if you want a CamelCase or a smallCamelCase string, use `CamelCaseFy` or `smallCamelCaseFy`:
 
 ```lisp
 * (CamelCaseFy "My new camel case string")
 ; => "MyNewCamelCaseString"
+* (smallCamelCaseFy "My new camel case string")
+; => "myNewCamelCaseString"
+
 ```
 
 ## Dependencies
