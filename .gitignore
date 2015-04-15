@@ -11,4 +11,6 @@ old-benchmark.lisp
 CamelCaseFy
 asciify
 slugify
+snakefy
+smallCamelCaseFy
 buildapp.sh
