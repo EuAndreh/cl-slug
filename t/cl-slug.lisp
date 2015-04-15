@@ -4,7 +4,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 6)
+(plan 5)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -54,15 +54,5 @@
   (is (CamelCaseFy "Eu Andrë! with german special char: ß")
       "EuAndreWithGermanSpecialCharss"
       "CamelCaseFy works, making a CamelCaseString with ASCII characters only."))
-
-(deftest smallCamelCaseFyTest
-  (is (CamelCaseFy "Eu Andrë! with german special char: ß")
-      "euAndreWithGermanSpecialCharss"
-      "CamelCaseFy works, making a CamelCaseString with ASCII characters only."))
-
-(deftest snakefy_test
-  (is (snakefy "Eu Andrë! with german special char: ß")
-      "eu_andre_with_german_special_char_ss"
-      "snakefy works with optional CHARSET, making a snake_string with ASCII characters only."))
 
 (run-test-all)

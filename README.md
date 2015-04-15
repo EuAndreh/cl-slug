@@ -12,9 +12,7 @@ Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-
 ```lisp
 * (ql:quickload :cl-slug)
 ; => (:CL-SLUG)
-* (import '(slug:slugify slug:asciify 
-            slug:CamelCaseFy slug:smallCamelCaseFy 
-            slug:snakefy))
+* (import '(slug:slugify slug:asciify slug:CamelCaseFy) 
 ; => T
 ```
 
@@ -35,12 +33,6 @@ The main (and only) function is called `slugify`:
 ; => "testing_the_slug_separator_var"
 ```
 
-To that specific case, you can use `snakefy`:
-```lisp
-* (snakefy "Using now snakefy")
-; => "using_now_snakefy"
-```
-
 `slugify` also ignores numbers:
 
 ```lisp
@@ -55,14 +47,11 @@ If you just want to remove accentuation and ponctuation of a given string, use `
 ; => "Eu Andre!"
 ```
 
-Or if you want a CamelCase or a smallCamelCase string, use `CamelCaseFy` or `smallCamelCaseFy`:
+Or if you want a CamelCase, use `CamelCaseFy`:
 
 ```lisp
 * (CamelCaseFy "My new camel case string")
 ; => "MyNewCamelCaseString"
-* (smallCamelCaseFy "My new camel case string")
-; => "myNewCamelCaseString"
-
 ```
 
 ## Dependencies

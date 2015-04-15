@@ -4,8 +4,6 @@
   (:export slugify
            asciify
            CamelCaseFy
-           smallCamelCaseFy
-           snakefy
            *slug-separator*)
   (:documentation "Main (and only) package. Package nickname SLUG also available."))
 (in-package cl-slug)
@@ -157,14 +155,3 @@
   "Makes STRING CamelCase, also removing ponctuation and accentuation."
   (remove *slug-separator*
           (asciify (string-capitalize (remove-ponctuation string)))))
-
-(defun smallCamelCaseFy (string)
-  "Makes STRING smallCamelCase, also removing ponctuation and accentuation."
-  (let ((CamelCaseString (CamelCaseFy string)))
-    (replace CamelCaseString
-             (string-downcase (subseq CamelCaseString 0 1)))))
-
-(defun snakefy (string)
-  "Makes STRING snake_case, also removing ponctuation and accentuation."
-  (let ((*slug-separator* #\_))
-    (slugify string)))
