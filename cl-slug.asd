@@ -1,5 +1,5 @@
 (defsystem cl-slug
-  :version "0.4"
+  :version "0.4.0"
   :author "André Miranda"
   :maintainer "André Miranda"
   :mailto "<andremiramor@gmail.com>"
