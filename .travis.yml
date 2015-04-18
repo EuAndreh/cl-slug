@@ -2,11 +2,14 @@ language: common-lisp
 
 env:
   matrix:
-    - LISP=abcl
     - LISP=sbcl COVERALLS=true
     - LISP=ccl
     - LISP=clisp
     - LISP=ecl
+
+matrix:
+  allow_failures:
+    - env: LISP=abcl
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
