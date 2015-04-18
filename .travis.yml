@@ -12,6 +12,11 @@ env:
     - LISP=cmucl
     - LISP=ecl
 
+matrix:
+  allow_failures:
+    # CIM not available for CMUCL
+    - env: LISP=cmucl
+
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;
   - git clone https://github.com/EuAndreh/prove
