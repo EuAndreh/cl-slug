@@ -2,13 +2,8 @@ language: common-lisp
 
 env:
   matrix:
-#    - LISP=sbcl COVERALLS=true
-#    - LISP=ccl
-#    - LISP=clisp
-
     - LISP=abcl
-#    - LISP=allegro
-    - LISP=sbcl
+    - LISP=sbcl COVERALLS=true
     - LISP=sbcl32
     - LISP=ccl
     - LISP=ccl32
@@ -16,8 +11,6 @@ env:
     - LISP=clisp32
     - LISP=cmucl
     - LISP=ecl
-#    - LISP=ecl
-#    - LISP=abcl
 
 matrix:
   allow_failures:
