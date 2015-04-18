@@ -5,7 +5,6 @@ env:
     - LISP=sbcl COVERALLS=true
     - LISP=ccl
     - LISP=clisp
-    - LISP=ecl
 
 matrix:
   allow_failures:
