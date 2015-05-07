@@ -9,8 +9,8 @@
   :license "LLGPL"
   :depends-on (cl-ppcre)
   :components ((:module "src"
-                :components
-                ((:file "cl-slug"))))
+                        :components
+                        ((:file "cl-slug"))))
   :description "Small library to make slugs, mainly for URIs, from english and beyond."
   :long-description
   #.(uiop:read-file-string

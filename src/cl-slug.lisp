@@ -8,8 +8,6 @@
   (:documentation "Main (and only) package. Package nickname SLUG also available."))
 (in-package cl-slug)
 
-
-
 (defparameter *available-languages* ()
   "Alist with (KEY . LANGUAGE-NAMESTRING).")
 
@@ -104,7 +102,7 @@
   "Removes accentuation (according to %ACCENTUATIONS) from STRING."
   (maphash (lambda (k v)
              (setf string (ppcre:regex-replace-all k string v)))
-          %accentuations)
+           %accentuations)
   string)
 
 (defun remove-special-chars (string)
