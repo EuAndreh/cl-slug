@@ -1,5 +1,5 @@
 (defpackage cl-slug-test
-  (:use cl cl-slug prove))
+  (:use cl prove cl-slug))
 (in-package cl-slug-test)
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.

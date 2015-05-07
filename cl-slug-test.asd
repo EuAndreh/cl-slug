@@ -1,8 +1,4 @@
 (defsystem cl-slug-test
-  :author "André Miranda"
-  :license "LLGPL"
-  :mailto "<andremiramor@gmail.com>"
-  :homepage "https://github.com/EuAndreh/fad-iter"
   :depends-on (cl-slug
                prove)
   :components ((:module "t"
