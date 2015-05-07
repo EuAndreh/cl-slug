@@ -59,11 +59,11 @@ Or if you want a CamelCase, use `CamelCaseFy`:
 This library depends on [CL-PPCRE](http://weitz.de/cl-ppcre). The test package uses the [prove](https://github.com/fukamachi/prove) test library.
 
 ## Installation
+Available on [Quicklisp](http://quicklisp.org)!
 
-Now available on [Quicklisp](http://quicklisp.org)! Just one `(ql:quickload :cl-slug)` away!
+Just one `(ql:quickload :cl-slug)` away!
 
 ## Supported languages
-
 The languages that are supported right now are english, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian, spanish and romansh strings.
 
    At the present moment, adding new languages is a fairly manual process:
@@ -74,12 +74,10 @@ The languages that are supported right now are english, portuguese, esperanto, g
    All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
 
 ## Bugs
-
 If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
 
 ## Tests
-
-This library is tested under SBCL, CCL and CLISP Common Lisp implementations.
+This library is tested under [SBCL](http://www.sbcl.org/), [CCL](http://ccl.clozure.com/) and [ABCL](https://common-lisp.net/project/armedbear/) Common Lisp implementations.
 
 To run all the defined tests, use:
 ```lisp
