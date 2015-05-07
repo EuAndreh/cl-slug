@@ -21,23 +21,30 @@
 
 (defmacro add-language (name key-code accentuation-alist
                         &optional special-chars-alist)
-  (flet ((add-downcase-equivalent (alist)
+  (flet ((add-upcase-equivalent (alist)
            "Adds an equivalent downcase cons pair to every cons pair."
            (remove-duplicates
-            (append alist (mapcar (lambda (pair)
-                                    (cons (string-downcase (car pair))
-                                          (string-downcase (cdr pair))))
-                                  alist)))))
+            (append (mapcar (lambda (pair)
+                              (cons (string (car pair))
+                                    (string (cdr pair))))
+                            alist)
+                    (mapcar (lambda (pair)
+                              (cons (string-downcase (car pair))
+                                    (string-downcase (cdr pair))))
+                            alist)))))
     `(progn
        (pushnew (cons ,key-code ,name) *available-languages* :key #'car)
        ,@(mapcar (lambda (pair)
                    `(setf (gethash ,(string (cdr pair)) %accentuations)
                           ,(string (car pair))))
-                 (add-downcase-equivalent accentuation-alist))
+
+                 (progn
+                   (print (add-upcase-equivalent accentuation-alist))
+                   (add-upcase-equivalent accentuation-alist)))
        ,@(mapcar (lambda (pair)
                    `(setf (gethash ,(string (cdr pair)) %special-chars)
                           ,(string (car pair))))
-                 (add-downcase-equivalent special-chars-alist))
+                 (add-upcase-equivalent special-chars-alist))
         ,key-code)))
 
 (add-language "Dansk (Danish)" :da
