@@ -51,8 +51,8 @@
       "asciify works, removing portuguese accentuation."))
 
 (deftest CamelCaseFyTest
-  (is (CamelCaseFy "Eu Andrë! with german special char: ß")
-      "EuAndreWithGermanSpecialCharss"
+  (is (CamelCaseFy "Eu Andrë! with french special char: æ")
+      "EuAndreWithFrenchSpecialCharAE"
       "CamelCaseFy works, making a CamelCaseString with ASCII characters only."))
 
 (run-test-all)
