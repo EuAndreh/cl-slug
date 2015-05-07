@@ -4,7 +4,7 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :cl-slug)' in your Lisp.
 
-(plan 5)
+(plan 6)
 
 (deftest test-change-*slug-separator*
   (let ((*slug-separator* #\_))
@@ -54,5 +54,27 @@
   (is (CamelCaseFy "Eu Andrë! with french special char: æ")
       "EuAndreWithFrenchSpecialCharAE"
       "CamelCaseFy works, making a CamelCaseString with ASCII characters only."))
+
+(import 'cl-slug::add-language)
+(deftest add-language-expansion-test
+  (is-expand (add-language "Deutsch (German)" :de
+                           ((a . ä) (e . ë) (i . ï) (o . ö) (u . ü))
+                           ((ss . ß)))
+             (PROGN
+               (PUSHNEW (CONS :DE "Deutsch (German)") CL-SLUG::*AVAILABLE-LANGUAGES* :KEY #'CAR)
+               (SETF (GETHASH "Ä" CL-SLUG::%ACCENTUATIONS) "A")
+               (SETF (GETHASH "Ë" CL-SLUG::%ACCENTUATIONS) "E")
+               (SETF (GETHASH "Ï" CL-SLUG::%ACCENTUATIONS) "I")
+               (SETF (GETHASH "Ö" CL-SLUG::%ACCENTUATIONS) "O")
+               (SETF (GETHASH "Ü" CL-SLUG::%ACCENTUATIONS) "U")
+               (SETF (GETHASH "ä" CL-SLUG::%ACCENTUATIONS) "a")
+               (SETF (GETHASH "ë" CL-SLUG::%ACCENTUATIONS) "e")
+               (SETF (GETHASH "ï" CL-SLUG::%ACCENTUATIONS) "i")
+               (SETF (GETHASH "ö" CL-SLUG::%ACCENTUATIONS) "o")
+               (SETF (GETHASH "ü" CL-SLUG::%ACCENTUATIONS) "u")
+               (SETF (GETHASH "ß" CL-SLUG::%SPECIAL-CHARS) "SS")
+               (SETF (GETHASH "ß" CL-SLUG::%SPECIAL-CHARS) "ss")
+               :DE)
+             "ADD-LANGUAGE expands correctly."))
 
 (run-test-all)
