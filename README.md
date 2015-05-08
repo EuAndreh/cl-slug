@@ -77,7 +77,7 @@ The languages that are supported right now are english, portuguese, esperanto, g
 If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
 
 ## Tests
-This library is tested under [SBCL](http://www.sbcl.org/), [CCL](http://ccl.clozure.com/) and [ABCL](https://common-lisp.net/project/armedbear/) Common Lisp implementations.
+This library is tested under [ABCL](https://common-lisp.net/project/armedbear/), [SBCL](http://www.sbcl.org/), [CCL](http://ccl.clozure.com/), [CLISP](http://www.clisp.org/) and [ECL](https://common-lisp.net/project/ecl/) Common Lisp implementations.
 
 To run all the defined tests, use:
 ```lisp
@@ -86,14 +86,10 @@ To run all the defined tests, use:
 ; => T
 ```
 
-Tests are also ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-slug) using [cl-travis](https://github.com/luismbo/cl-travis) and [CIM](https://github.com/KeenS/CIM). Check it out!
+Tests are ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-slug) using [cl-travis](https://github.com/luismbo/cl-travis) and [CIM](https://github.com/KeenS/CIM). Check it out!
 
 ## Author
-
 André Miranda
 
 ## License
-
-Licensed under the [LLGPL](https://tldrlegal.com/license/lisp-lesser-general-public-license#fulltext) License.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/EuAndreh/cl-slug/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[LLGPL](https://tldrlegal.com/license/lisp-lesser-general-public-license#fulltext).

@@ -10,7 +10,8 @@
   :depends-on (cl-ppcre)
   :components ((:module "src"
                         :components
-                        ((:file "cl-slug"))))
+                        ((:file "cl-slug")))
+               (:static-file "README.md"))
   :description "Small library to make slugs, mainly for URIs, from english and beyond."
   :long-description #.(uiop:read-file-string
                        (uiop:subpathname *load-pathname* "README.md"))
