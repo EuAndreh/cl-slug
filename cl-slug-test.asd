@@ -1,5 +1,5 @@
 (in-package :asdf-user)
-(defsystem cl-slug-test
+(asdf:defsystem cl-slug-test
   :depends-on (cl-slug
                prove)
   :components ((:module "t"
