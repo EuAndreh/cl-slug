@@ -1,3 +1,4 @@
+(in-package :cl-user)
 (defpackage cl-slug
   (:use cl)
   (:nicknames slug)
