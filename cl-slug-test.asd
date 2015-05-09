@@ -1,4 +1,3 @@
-(in-package :asdf-user)
 (asdf:defsystem cl-slug-test
   :depends-on (cl-slug
                prove)
