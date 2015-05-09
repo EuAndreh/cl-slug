@@ -1,3 +1,4 @@
+(in-package :cl-user)
 (defsystem cl-slug-test
   :depends-on (cl-slug
                prove)
