@@ -1,3 +1,4 @@
+(in-package :asdf-user)
 (defsystem cl-slug
   :version "0.4.1"
   :author "André Miranda"
