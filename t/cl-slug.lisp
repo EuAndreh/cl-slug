@@ -1,4 +1,3 @@
-(in-package :cl-user)
 (defpackage cl-slug-test
   (:use cl prove cl-slug))
 (in-package cl-slug-test)
