@@ -37,10 +37,7 @@
        ,@(mapcar (lambda (pair)
                    `(setf (gethash ,(string (cdr pair)) %accentuations)
                           ,(string (car pair))))
-
-                 (progn
-                   (print (add-upcase-equivalent accentuation-alist))
-                   (add-upcase-equivalent accentuation-alist)))
+                 (add-upcase-equivalent accentuation-alist))
        ,@(mapcar (lambda (pair)
                    `(setf (gethash ,(string (cdr pair)) %special-chars)
                           ,(string (car pair))))
