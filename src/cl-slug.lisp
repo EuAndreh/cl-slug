@@ -35,7 +35,7 @@
     `(progn
        (pushnew (cons ,key-code ,name) *available-languages* :key #'car)
        ,@(mapcar (lambda (pair)
-                   `(setf (gethash , (cdr pair) %accentuations)
+                   `(setf (gethash ,(cdr pair) %accentuations)
                           ,(car pair)))
                  (add-upcase-equivalent accentuation-alist))
        ,@(mapcar (lambda (pair)
