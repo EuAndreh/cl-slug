@@ -46,11 +46,13 @@
 
 (add-language "Currency" :currency
               ()
-              ((indian rupee . ₹) (dollar . $) (baht . ฿) (currency . ¤) (ecu . ₠) (rial . ﷼)
+              ((indian-rupee . ₹) ;;(dollar . $)
+               (baht . ฿) (currency . ¤) (ecu . ₠) (rial . ﷼)
                (yen . 円) (yuan . 元) (yen . ¥) (cent . ¢) (cedi . ₵) (hryvnia . ₴) (austral . ₳)
                (guarani . ₲) (peso . ₱) (penny . ₰) (drachma . ₯) (tugrik . ₮) (kip . ₭) (dong . ₫)
-               (new shequel . ₪) (won . ₩) (rupee . ₨) (peseta . ₧) (naira . ₦) (mill . ₥)
-               (lira . ₤) (pound . £) (french franc . ₣) (cruzeiro . ₢) (euro . €)))
+               (new-shequel . ₪) (won . ₩) ;;(rupee . ₨)
+               (peseta . ₧) (naira . ₦) (mill . ₥)
+               (lira . ₤) (pound . £) (french-franc . ₣) (cruzeiro . ₢) (euro . €)))
 
 (add-language "Čeština (Czech)" :cs
               ((z . ž) (u . ů) (t . ť) (s . š) (r . ř) (n . ň) (e . ě) (d . ď) (c . č)))
