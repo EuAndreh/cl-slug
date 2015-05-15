@@ -13,10 +13,10 @@
 
 (defparameter *slug-separator* #\- "Default separator of slug strings.")
 
-(defparameter %accentuations (make-hash-table)
+(defparameter %accentuations (make-hash-table :test #'equal)
   "Hash table of all {accentuation -> ascii-equivalent} characters.")
 
-(defparameter %special-chars (make-hash-table)
+(defparameter %special-chars (make-hash-table :test #'equal)
   "Hash table of all {special-char -> ascii-equivalent} strings.")
 
 (defmacro add-language (name key-code accentuation-alist
@@ -46,11 +46,11 @@
 
 (add-language "Currency" :currency
               ()
-              ((indian-rupee . ₹) ;;(dollar . $)
+              ((indian-rupee . ₹) (dollar . \\$)
                (baht . ฿) (currency . ¤) (ecu . ₠) (rial . ﷼)
                (yen . 円) (yuan . 元) (yen . ¥) (cent . ¢) (cedi . ₵) (hryvnia . ₴) (austral . ₳)
                (guarani . ₲) (peso . ₱) (penny . ₰) (drachma . ₯) (tugrik . ₮) (kip . ₭) (dong . ₫)
-               (new-shequel . ₪) (won . ₩) ;;(rupee . ₨)
+               (new-shequel . ₪) (won . ₩) (rupee . #\₨)
                (peseta . ₧) (naira . ₦) (mill . ₥)
                (lira . ₤) (pound . £) (french-franc . ₣) (cruzeiro . ₢) (euro . €)))
 
