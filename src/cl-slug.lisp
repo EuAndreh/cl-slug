@@ -46,11 +46,11 @@
 
 (add-language "Currency" :currency
               ()
-              ((indian-rupee . ₹) (dollar . \\$)
+              ((indian-rupee . ₹) (dollar . \\$) ;; This confuses the regex => unwanted
                (baht . ฿) (currency . ¤) (ecu . ₠) (rial . ﷼)
                (yen . 円) (yuan . 元) (yen . ¥) (cent . ¢) (cedi . ₵) (hryvnia . ₴) (austral . ₳)
                (guarani . ₲) (peso . ₱) (penny . ₰) (drachma . ₯) (tugrik . ₮) (kip . ₭) (dong . ₫)
-               (new-shequel . ₪) (won . ₩) (rupee . #\₨)
+               (new-shequel . ₪) (won . ₩) (rupee . #\₨) ;; The ₨ symbols's string is RS => unwanted
                (peseta . ₧) (naira . ₦) (mill . ₥)
                (lira . ₤) (pound . £) (french-franc . ₣) (cruzeiro . ₢) (euro . €)))
 

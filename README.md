@@ -118,6 +118,3 @@ André Miranda
 
 ## License
 [LLGPL](https://tldrlegal.com/license/lisp-lesser-general-public-license#fulltext).
-
-
-;; Taken from https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/media/js/urlify.js
