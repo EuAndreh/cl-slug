@@ -77,6 +77,7 @@ The languages that are supported right now are:
 - italian
 - spanish
 - romansh
+
 Taken from [https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/media/js/urlify.js]():
 - currency
 - romanian
@@ -91,9 +92,9 @@ Taken from [https://code.djangoproject.com/browser/django/trunk/django/contrib/a
 - latin
 
 At the present moment, adding new languages is a fairly manual process:
-1. Identify non-ASCII characters in a given language's alphabet
-2. Stablish equivalence between the found characters and ASCII characters
-3. Write them down in the code.
+  1. Identify non-ASCII characters in a given language's alphabet
+  2. Stablish equivalence between the found characters and ASCII characters
+  3. Write them down in the code.
 
    All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
 
