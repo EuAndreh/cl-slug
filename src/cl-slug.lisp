@@ -25,24 +25,35 @@
            "Adds an equivalent downcase cons pair to every cons pair."
            (remove-duplicates
             (append (mapcar (lambda (pair)
-                              (cons (string (car pair))
-                                    (string (cdr pair))))
+                              (cons (string-upcase (princ-to-string (car pair)))
+                                    (string-upcase (princ-to-string (cdr pair)))))
                             alist)
                     (mapcar (lambda (pair)
-                              (cons (string-downcase (car pair))
-                                    (string-downcase (cdr pair))))
+                              (cons (string-downcase (princ-to-string (car pair)))
+                                    (string-downcase (princ-to-string (cdr pair)))))
                             alist)))))
     `(progn
        (pushnew (cons ,key-code ,name) *available-languages* :key #'car)
        ,@(mapcar (lambda (pair)
-                   `(setf (gethash ,(string (cdr pair)) %accentuations)
-                          ,(string (car pair))))
+                   `(setf (gethash , (cdr pair) %accentuations)
+                          ,(car pair)))
                  (add-upcase-equivalent accentuation-alist))
        ,@(mapcar (lambda (pair)
-                   `(setf (gethash ,(string (cdr pair)) %special-chars)
-                          ,(string (car pair))))
+                   `(setf (gethash ,(cdr pair) %special-chars)
+                          ,(car pair)))
                  (add-upcase-equivalent special-chars-alist))
         ,key-code)))
+
+(add-language "Currency" :currency
+              ()
+              ((indian rupee . ₹) (dollar . $) (baht . ฿) (currency . ¤) (ecu . ₠) (rial . ﷼)
+               (yen . 円) (yuan . 元) (yen . ¥) (cent . ¢) (cedi . ₵) (hryvnia . ₴) (austral . ₳)
+               (guarani . ₲) (peso . ₱) (penny . ₰) (drachma . ₯) (tugrik . ₮) (kip . ₭) (dong . ₫)
+               (new shequel . ₪) (won . ₩) (rupee . ₨) (peseta . ₧) (naira . ₦) (mill . ₥)
+               (lira . ₤) (pound . £) (french franc . ₣) (cruzeiro . ₢) (euro . €)))
+
+(add-language "Čeština (Czech)" :cs
+              ((z . ž) (u . ů) (t . ť) (s . š) (r . ř) (n . ň) (e . ě) (d . ď) (c . č)))
 
 (add-language "Dansk (Danish)" :da
               ((e . è) (o . ò) (a . â)
@@ -73,9 +84,29 @@
                (c . ç) (y . ÿ) (i . î))
               ((oe . œ) (ae . æ)))
 
+(add-language "ελληνικά (Greek)" :el
+              ((i . ΐ) (y . ϋ) (y . ΰ) (i . ϊ) (s . ς) (w . ώ) (h . ή) (y . ύ) (o . ό)
+               (i . ί) (e . έ) (a . ά) (w . ω) (x . χ) (f . φ) (y . υ) (t . τ) (s . σ)
+               (r . ρ) (p . π) (o . ο) (3 . ξ) (n . ν) (m . μ) (l . λ) (k . κ) (i . ι)
+               (8 . θ) (h . η) (z . ζ) (e . ε) (d . δ) (g . γ) (b . β) (a . α))
+              ((ps . ψ)))
+
 (add-language "Italiano (Italian)" :it
               ((e . è) (o . ò) (i . î)
                (e . é) (o . ó)))
+
+(add-language "Lingua Latīna (Latin)" :la
+              ((y . ÿ) (y . ý) (u . ű) (u . ü) (u . û) (u . ú) (u . ù) (o . ø) (o . ő)
+               (o . ö) (o . õ) (o . ô) (o . ó) (o . ò) (n . ñ) (d . ð) (i . ï) (i . î)
+               (i . í) (i . ì) (e . ë) (e . ê) (e . é) (e . è) (c . ç) (a . å) (a . ä)
+               (a . ã) (a . â) (a . á) (a . à))
+              ((ss . ẞ) (ss . ß) (th . þ) (ae . æ)))
+
+(add-language "Latviešu (Latvian)" :lv
+              ((u . ū) (n . ņ) (l . ļ) (k . ķ) (i . ī) (g . ģ) (e . ē) (a . ā)))
+
+(add-language "Lietuvių (Lithuanian)" :lt
+              ((u . ų) (i . į) (e . ė)))
 
 (add-language "Norsk (Norwegian)" :no
               ((e . è) (o . ò) (a . â)
@@ -83,6 +114,9 @@
                (e . ê) (o . ô)
                        (o . ø))
               ((aa . å) (ae . æ)))
+
+(add-language "Polski (Polish)" :pl
+              ((z . ż) (z . ź) (s . ś) (n . ń) (l . ł) (e . ę) (c . ć) (a . ą)))
 
 (add-language "Português (Portuguese)" :pt
               ((a . á) (e . é) (i . í) (o . ó) (u . ú)
@@ -95,12 +129,28 @@
                (e . è)
                (e . ê)))
 
+(add-language "Română (Romanian)" :ro
+              ((a . ă) (s . ș) (t . ţ) (t . ț)))
+
+(add-language "Ру́сский (Russian)" :ru
+              ((e . э) (y . ы) (u . ъ) (c . ц) (h . х) (f . ф) (u . у) (t . т) (s . с)
+               (r . р) (p . п) (o . о) (n . н) (m . м) (l . л) (k . к) (j . й) (i . и)
+               (z . з) (e . е) (d . д) (g . г) (v . в) (b . б) (a . а) ("" . ь))
+              ((ya . я) (yu . ю) (sh . щ) (sh . ш) (ch . ч) (zh . ж) (yo . ё)))
+
+(add-language "українська (Ukrainian)" :uk
+              ((g . ґ) (yi . ї) (i . і) (ye . є)))
+
 (add-language "Suomi (Finnish)" :fi
               ((a . ä) (o . ö) (u . ü)))
 
 (add-language "Svenska (Swedish)" :sv
               ((a . ä) (o . ö) (u . ü))
               ((aa . å)))
+
+(add-language "Türkçe (Turkish)" :tr
+              ((g . ğ) (i . İ) (i . ı) (s . ş)))
+
 
 (defun remove-accentuation (string)
   "Removes accentuation (according to %ACCENTUATIONS) from STRING."

@@ -64,12 +64,36 @@ Available on [Quicklisp](http://quicklisp.org)!
 Just one `(ql:quickload :cl-slug)` away!
 
 ## Supported languages
-The languages that are supported right now are english, portuguese, esperanto, german, french, swedish, finnish, norwegian, danish, italian, spanish and romansh strings.
+The languages that are supported right now are:
+- english
+- portuguese
+- esperanto
+- german
+- french
+- swedish
+- finnish
+- norwegian
+- danish
+- italian
+- spanish
+- romansh
+Taken from [https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/media/js/urlify.js]():
+- currency
+- romanian
+- lithuanian
+- latvian
+- polish
+- czesh
+- ukranian
+- russian
+- turkish
+- greek
+- latin
 
-   At the present moment, adding new languages is a fairly manual process:
-   1. Identify non-ASCII characters in a given language's alphabet
-   2. Stablish equivalence between the found characters and ASCII characters
-   3. Write them down in the code.
+At the present moment, adding new languages is a fairly manual process:
+1. Identify non-ASCII characters in a given language's alphabet
+2. Stablish equivalence between the found characters and ASCII characters
+3. Write them down in the code.
 
    All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
 
@@ -93,3 +117,6 @@ André Miranda
 
 ## License
 [LLGPL](https://tldrlegal.com/license/lisp-lesser-general-public-license#fulltext).
+
+
+;; Taken from https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/media/js/urlify.js
