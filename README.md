@@ -16,7 +16,7 @@ Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-
 ; => T
 ```
 
-The main (and only) function is called `slugify`:
+The main function is called `slugify`:
 
 ```lisp
 * (slugify "My new cool article, for the blog (V. 2).")
@@ -59,9 +59,10 @@ Or if you want a CamelCase, use `CamelCaseFy`:
 This library depends on [CL-PPCRE](http://weitz.de/cl-ppcre). The test package uses the [prove](https://github.com/fukamachi/prove) test library.
 
 ## Installation
-Available on [Quicklisp](http://quicklisp.org)!
-
-Just one `(ql:quickload :cl-slug)` away!
+Available on [Quicklisp](http://quicklisp.org):
+```
+(ql:quickload :cl-slug)
+```
 
 ## Supported languages
 The languages that are supported right now are:
@@ -96,7 +97,7 @@ At the present moment, adding new languages is a fairly manual process:
   2. Stablish equivalence between the found characters and ASCII characters
   3. Write them down in the code.
 
-   All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
+All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
 
 ## Bugs
 If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
