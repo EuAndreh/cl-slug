@@ -8,7 +8,6 @@ Easily create slugs from any string. Supports many languages alphabets. See [Sup
 Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-auto-rewriting-the-routes).
 
 ## Usage
-
 ```lisp
 * (ql:quickload :cl-slug)
 ; => (:CL-SLUG)
@@ -79,7 +78,7 @@ The languages that are supported right now are:
 - spanish
 - romansh
 
-Taken from [https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/media/js/urlify.js]():
+Ported from [Django](https://code.djangoproject.com/browser/django/trunk/django/contrib/admin/media/js/urlify.js)():
 - currency
 - romanian
 - lithuanian
@@ -97,7 +96,9 @@ At the present moment, adding new languages is a fairly manual process:
   2. Stablish equivalence between the found characters and ASCII characters
   3. Write them down in the code.
 
-All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. I couldn't think of a solution so far for this, but if anyone knows a solution (even a partial one) I'd be glad to hear =].
+All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. It's not generic and not scalable.
+
+I couldn't think of a solution so far for this, but if you know a solution (even a partial one) I'd be glad to hear =].
 
 ## Bugs
 If you find any bug or inconsistency in the code, or if you find it too hard to use, please, feel free to open an issue.
