@@ -1,4 +1,5 @@
 (defsystem cl-slug
+  :name "cl-slug"
   :version "0.4.1"
   :author "André Miranda"
   :maintainer "André Miranda"
@@ -10,8 +11,7 @@
   :description "Small library to make slugs, mainly for URIs, from english and beyond."
   :depends-on (cl-ppcre)
   :components ((:module "src"
-                        :components
-                        ((:file "cl-slug")))
+                        :components ((:file "cl-slug")))
                (:static-file "README.md"))
   :long-description #.(uiop:read-file-string
                        (uiop:subpathname *load-pathname* "README.md"))

@@ -12,8 +12,7 @@
   :depends-on (cl-slug
                prove)
   :components ((:module "t"
-                        :components
-                        ((:test-file "cl-slug"))))
+                        :components ((:test-file "cl-slug"))))
   :defsystem-depends-on (prove-asdf)
   :perform (test-op :after (op c)
                     (funcall (intern "RUN-TEST-SYSTEM" :prove-asdf) c)

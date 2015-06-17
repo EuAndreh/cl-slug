@@ -8,3 +8,4 @@
 .#*
 *.pdf
 bin/*
+cl-slug-benchmark.lisp

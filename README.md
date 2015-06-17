@@ -1,6 +1,6 @@
 # cl-slug
-
 [![Build Status](https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master)](https://travis-ci.org/EuAndreh/cl-slug)
+[![Circle CI](https://circleci.com/gh/EuAndreh/cl-slug.svg?style=svg)](https://circleci.com/gh/EuAndreh/cl-slug)
 [![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-slug?branch=master)
 
 Easily create slugs from any string. Supports many languages alphabets. See [Supported languages](#supported-languages) to check for supported languages or to help to add one.
@@ -113,7 +113,7 @@ To run all the defined tests, use:
 ; => T
 ```
 
-Tests are ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-slug) using [cl-travis](https://github.com/luismbo/cl-travis) and [CIM](https://github.com/KeenS/CIM). Check it out!
+Tests are ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-slug) and [Circle CI](https://circleci.com/gh/EuAndreh/cl-slug) using [cl-travis](https://github.com/luismbo/cl-travis), [CIM](https://github.com/KeenS/CIM), [cl-coveralls](https://github.com/fukamachi/cl-coveralls) and [Roswell](https://github.com/snmsts/roswell). Check it out!
 
 ## Author
 André Miranda
