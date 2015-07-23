@@ -4,6 +4,7 @@
   (:export slugify
            asciify
            CamelCaseFy
+           *available-languages*
            *slug-separator*)
   (:documentation "Main (and only) package. Package nickname SLUG also available."))
 (in-package cl-slug)

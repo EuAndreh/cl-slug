@@ -53,6 +53,19 @@ Or if you want a CamelCase, use `CamelCaseFy`:
 ; => "MyNewCamelCaseString"
 ```
 
+Available languages are stored in `*available-languages*`:
+```lisp
+* slug:*available-languages*
+((:TR . "Türkçe (Turkish)") (:SV . "Svenska (Swedish)") (:FI . "Suomi (Finnish)") 
+ (:UK . "українська (Ukrainian)") (:RU . "Ру́сский (Russian)") (:RO . "Română (Romanian)")
+ (:RM . "Rumàntsch (Romansh)") (:PT . "Português (Portuguese)") (:PL . "Polski (Polish)")
+ (:NO . "Norsk (Norwegian)") (:LT . "Lietuvių (Lithuanian)") (:LV . "Latviešu (Latvian)")
+ (:LA . "Lingua Latīna (Latin)") (:IT . "Italiano (Italian)") (:EL . "ελληνικά (Greek)")
+ (:FR . "Français (French)") (:EO . "Esperanto") (:ES . "Español (Spanish)") (:EN . "English")
+ (:DE . "Deutsch (German)") (:DA . "Dansk (Danish)") (:CS . "Čeština (Czech)")
+ (:CURRENCY . "Currency"))
+```
+
 ## Dependencies
 
 This library depends on [CL-PPCRE](http://weitz.de/cl-ppcre). The test package uses the [prove](https://github.com/fukamachi/prove) test library.
