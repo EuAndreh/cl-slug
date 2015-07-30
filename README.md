@@ -1,5 +1,5 @@
 # cl-slug
-[![Quicklisp dist](http://quickdocs.org/badge/cl-slug.svg)](http://quickdocs.org/cl-slug/)
+[![Quicklisp](http://quickdocs.org/badge/cl-slug.svg)](http://quickdocs.org/cl-slug/)
 [![Build Status](https://travis-ci.org/EuAndreh/cl-slug.svg?branch=master)](https://travis-ci.org/EuAndreh/cl-slug)
 [![Circle CI](https://circleci.com/gh/EuAndreh/cl-slug.svg?style=svg)](https://circleci.com/gh/EuAndreh/cl-slug)
 [![Coverage Status](https://coveralls.io/repos/EuAndreh/cl-slug/badge.svg?branch=master)](https://coveralls.io/r/EuAndreh/cl-slug?branch=master)
