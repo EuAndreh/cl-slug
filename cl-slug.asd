@@ -14,5 +14,5 @@
                         :components ((:file "cl-slug")))
                (:static-file "README.md"))
   :long-description #.(uiop:read-file-string
-                       (asdf:system-relative-pathname :cl-slug "README.md"))
+                       (uiop:subpathname *load-truename* "README.md"))
   :in-order-to ((test-op (test-op cl-slug-test))))
