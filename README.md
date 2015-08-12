@@ -43,7 +43,7 @@ The main function is called `slugify`:
 If you just want to remove accentuation and ponctuation of a given string, use `asciify`:
 
 ```lisp
-* (asciify "Eu André!" :pt)
+* (asciify "Eu André!")
 ; => "Eu Andre!"
 ```
 
