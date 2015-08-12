@@ -28,7 +28,7 @@ The main function is called `slugify`:
 `slugify` removes any accentuated character, replacing it with an unaccentuated equivalent, and any ponctuation (a ponctuation is a char that returns `NIL` for `alphanumericp`) and puts a dash (`-`) on it's place. You can change that by binding (of `setf`ing) `*slug-separator*`:
 
 ```lisp
-* (let ((*slug-separator* #\/))
+* (let ((*slug-separator* #\_))
     (slugify "Testing the *slug-separator* var..."))
 ; => "testing_the_slug_separator_var"
 ```
