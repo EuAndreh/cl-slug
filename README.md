@@ -130,7 +130,7 @@ To run all the defined tests, use:
 Tests are ran with [Travis CI](https://travis-ci.org/EuAndreh/cl-slug) and [Circle CI](https://circleci.com/gh/EuAndreh/cl-slug) using [cl-travis](https://github.com/luismbo/cl-travis), [CIM](https://github.com/KeenS/CIM), [cl-coveralls](https://github.com/fukamachi/cl-coveralls) and [Roswell](https://github.com/snmsts/roswell). Check it out!
 
 ## Author
-André Miranda
+André Miranda.
 
 ## License
 [LLGPL](https://tldrlegal.com/license/lisp-lesser-general-public-license#fulltext).
