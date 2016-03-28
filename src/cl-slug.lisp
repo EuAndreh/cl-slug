@@ -206,7 +206,7 @@
     (remove-special-chars
      (remove-ponctuation string)))))
 
-(defun CamelCaseFy (string)
+(defun camelcasefy (string)
   "Makes STRING CamelCase, also removing ponctuation and accentuation."
   (remove *slug-separator*
           (asciify (string-capitalize (remove-ponctuation string)))))
