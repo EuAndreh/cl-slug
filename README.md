@@ -12,7 +12,7 @@ Inspired by [Lisp Web Tales](http://lispwebtales.ppenev.com/chap05.html#leanpub-
 ```lisp
 * (ql:quickload :cl-slug)
 ; => (:CL-SLUG)
-* (import '(slug:slugify slug:asciify slug:CamelCaseFy) 
+* (import '(slug:slugify slug:asciify slug:CamelCaseFy))
 ; => T
 ```
 
