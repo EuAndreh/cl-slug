@@ -169,28 +169,34 @@
            %special-chars)
   string)
 
+(defun last-char (string)
+  "Returns the last char of a non-empty string."
+  (let ((index (1- (length string))))
+    (when (not (= -1 index))
+      (elt string index))))
+
 (defun remove-ponctuation (string)
   "Removes ponctuation and other special characters from STRING according #'ALPHANUMERICP."
   (labels ((substitute-ponctuation-by-separator (string)
              "If a (alphanumericp char) returns false, such char is replaced with *SLUG-SEPARATOR*."
              (map 'string (lambda (char)
-                                   (if (alphanumericp char)
-                                       char
-                                       *slug-separator*))
-                           string))
+                            (if (alphanumericp char)
+                                char
+                                *slug-separator*))
+                  string))
            (remove-repeated-separator (string)
              "Removes consecutives *SLUG-SEPARATOR*s from string."
-             (remove-if (let (toggle)
-                          (lambda (char)
-                            (if toggle
-                                (if (char= char *slug-separator*)
-                                    t
-                                    (setf toggle nil))
-                                (if (char= char *slug-separator*)
-                                    (progn
-                                      (setf toggle t)
-                                      nil)))))
-                        string)))
+             (reduce (lambda (string char)
+                       (if (and (equal char
+                                       *slug-separator*)
+                                (equal (last-char string)
+                                       *slug-separator*))
+                           string
+                           (concatenate 'string
+                                        string
+                                        (string char))))
+                     string
+                     :initial-value "")))
     (remove-repeated-separator
      (string-trim (list *slug-separator*)
                   (substitute-ponctuation-by-separator string)))))
