@@ -187,14 +187,13 @@
            (remove-repeated-separator (string)
              "Removes consecutives *SLUG-SEPARATOR*s from string."
              (reduce (lambda (string char)
-                       (if (and (equal char
-                                       *slug-separator*)
-                                (equal (last-char string)
-                                       *slug-separator*))
-                           string
-                           (concatenate 'string
-                                        string
-                                        (string char))))
+                       (let ((last-char (last-char string)))
+                         (if (and last-char
+                                  (char= char *slug-separator* (last-char string)))
+                             string
+                             (concatenate 'string
+                                          string
+                                          (string char)))))
                      string
                      :initial-value "")))
     (remove-repeated-separator
