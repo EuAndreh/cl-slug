@@ -94,6 +94,10 @@
                (8 . θ) (h . η) (z . ζ) (e . ε) (d . δ) (g . γ) (b . β) (a . α))
               ((ps . ψ)))
 
+(add-language "Íslenska (Icelandic)" :is
+              ((a . á) (e . é) (i . í) (o . ó) (u . ú) (y . ý) (o . ö))
+              ((d . ð) (th . þ) (ae . æ)))
+
 (add-language "Italiano (Italian)" :it
               ((e . è) (o . ò) (i . î)
                (e . é) (o . ó)))
