@@ -25,7 +25,7 @@ The main function is called `slugify`:
 ; => "andre-miranda"
 ```
 
-`slugify` removes any accentuated character, replacing it with an unaccentuated equivalent, and any ponctuation (a ponctuation is a char that returns `NIL` for `alphanumericp`) and puts a dash (`-`) on it's place. You can change that by binding (of `setf`ing) `*slug-separator*`:
+`slugify` removes any accented character, replacing it with an unaccented equivalent, and any punctuation (a punctuation is a char that returns `NIL` for `alphanumericp`) and puts a dash (`-`) on it's place. You can change that by binding (of `setf`ing) `*slug-separator*`:
 
 ```lisp
 * (let ((*slug-separator* #\_))
@@ -40,7 +40,7 @@ The main function is called `slugify`:
 ; => "one2three4five"
 ```
 
-If you just want to remove accentuation and ponctuation of a given string, use `asciify`:
+If you just want to remove accents and punctuation of a given string, use `asciify`:
 
 ```lisp
 * (asciify "Eu André!")
@@ -107,10 +107,10 @@ Ported from [Django](https://code.djangoproject.com/browser/django/trunk/django/
 
 At the present moment, adding new languages is a fairly manual process:
   1. Identify non-ASCII characters in a given language's alphabet
-  2. Stablish equivalence between the found characters and ASCII characters
+  2. Establish equivalence between the found characters and ASCII characters
   3. Write them down in the code.
 
-All those things can actually be done for most of the dominant western languages, but can't be applied for minor regional languages or many other non-latin languages from the whole world, like chinese. It's not generic and not scalable.
+All those things can actually be done for most of the dominant Western languages, but can't be applied for minor regional languages or many other non-Latin languages from the whole world, like Chinese. It's not generic and not scalable.
 
 I couldn't think of a solution so far for this, but if you know a solution (even a partial one) I'd be glad to hear =].
 
