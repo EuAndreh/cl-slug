@@ -148,6 +148,9 @@
 (add-language "українська (Ukrainian)" :uk
               ((g . ґ) (yi . ї) (i . і) (ye . є)))
 
+(add-language "Беларуская (Belarusian)" :be
+              ((w . ў)))
+
 (add-language "Suomi (Finnish)" :fi
               ((a . ä) (o . ö) (u . ü)))
 
